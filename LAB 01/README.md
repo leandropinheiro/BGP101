@@ -116,9 +116,21 @@ COMANDO | DESCRIÇÃO
 	1.1.1.2         4          100       0       0        1    0    0 never    Idle
 	RTA#
 	
-	! veja que no Up/Down = never
-	! isso significa que a conexão BGP nunca ficou ativa antes
-	! Veja que o State = Idle
-	! isso significa que a conexão com peer está Down
+	! veja que no Up/Down = never.
+	! isso significa que a conexão BGP nunca ficou ativa antes.
+	! Veja que o State = Idle.
+	! isso significa que a conexão com peer está Down.
 
-9. Verificar os prefixos IPv4 no RTA, execute o comando ***show ip bgp***, com
+9. Verificar os prefixos IPv4 no RTA, execute o comando ***show ip bgp***, compare com a saída de exemplo abaixo:
+
+>
+	RTA#show ip bgp         
+	RTA#
+	
+	! veja que não há saída nenhuma.
+	! isso significa que não há prefixo na Topologia do BGP
+	! os motivos são dois: 1) não há conexão Up com nenhum peer
+	! que possa injetar prefixos, 2) o roteador local não está
+	! injetando nenhum prexio no BGP.
+
+### Tarefa 02
