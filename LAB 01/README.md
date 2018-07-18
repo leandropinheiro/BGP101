@@ -27,14 +27,14 @@ O aluno deve seguir os passos para poder configurar a adjacêcia (*peering*) BGP
 
 ![topologia](https://raw.githubusercontent.com/leandropinheiro/BGP101/master/img/LAB01-topologia.png)
 
-HOSTNAME | TIPO | ASN | E0/0 | E0/1
-:-------:|:----:|:---:|:----:|:---:
-RTA|ROUTER|100|1.1.1.1/24|-
-RTA|ROUTER|100|1::1/64|-
-RTB|ROUTER|100|1.1.1.2/24|2.2.2.2/24
-RTB|ROUTER|100|1::2/64|2::2/64
-RTC|ROUTER|200|2.2.2.1/24|-
-RTC|ROUTER|200|2::1/64|-
+HOSTNAME | TIPO | ASN | E0/0 | E0/1 | Lo0 | Lo1 
+:-------:|:----:|:---:|:----:|:----:|:---:|:---:
+RTA|ROUTER|100|1.1.1.1/24|-|-|-
+RTA|ROUTER|100|1::1/64|-|-|-
+RTB|ROUTER|100|1.1.1.2/24|2.2.2.2/24|-|-
+RTB|ROUTER|100|1::2/64|2::2/64|-|-
+RTC|ROUTER|200|2.2.2.1/24|-|200.0.0.1/24|201.0.0.1/24
+RTC|ROUTER|200|2::1/64|-|200::1/64|201::1/64
 
 O roteador **RTC** está pré-configurado e o aluno não precisa realizar nenhum intervenção de configuração neste equipamento, entretanto é permitido usar comandos *show*, *ping* e *tracerouter*.
 
