@@ -25,4 +25,4 @@ O aluno deve seguir os passos para poder configurar a adjacêcia (*peering*) BGP
 
 ### Topologia do LAB
 
-![topologia](https://raw.githubusercontent.com/leandropinheiro/BGP101/master/img/LAB01-topologia.png)
+![topologia](https://raw.githubusercontent.com/leandropinheiro/BGP101/master/img/LAB02-topologia.png)
