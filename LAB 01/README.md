@@ -36,9 +36,9 @@ RTB|ROUTER|100|1::2/64|2::2/64|-|-
 RTC|ROUTER|200|2.2.2.1/24|-|200.0.0.1/24|201.0.0.1/24
 RTC|ROUTER|200|2::1/64|-|200::1/64|201::1/64
 
-O roteador **RTC** está pré-configurado e o aluno não precisa realizar nenhum intervenção de configuração neste equipamento, entretanto é permitido usar comandos *show*, *ping* e *tracerouter*.
+O roteador **RTC** está pré-configurado e o aluno não precisa realizar nenhuma intervenção de configuração neste equipamento, entretanto é permitido usar comandos *show*, *ping* e *tracerouter*.
 
-Os roteadores **RTA** e **RTB** estão configurados apenas com as configurações básica, como *hostname*, *description* e endereço *IPv4* e *IPv6* das *interfaces*. Nestes equipamentos o aluno pode fazer qualquer configuração, e executar quaisquer comandos.
+Os roteadores **RTA** e **RTB** estão configurados apenas com as configurações básicas, como *hostname*, *description* e endereço *IPv4* e *IPv6* das *interfaces*. Nestes equipamentos o aluno pode fazer qualquer configuração, e executar quaisquer comandos.
 
 #### Credenciais de acesso
 
@@ -128,7 +128,7 @@ COMANDO | DESCRIÇÃO
 	!
 	write
 
-8. Verificar neigbors IPv4 no ***RTA***, execute o comando ***show ip bgp summary***, compare com a saída de exemplo abaixo:
+8. Verificar neighbors IPv4 no ***RTA***, execute o comando ***show ip bgp summary***, compare com a saída de exemplo abaixo:
 
 >
 	RTA#show ip bgp summary
@@ -200,7 +200,7 @@ COMANDO | DESCRIÇÃO
 	!
 	write
 
-5. Verificar neigbors IPv4 no ***RTB***, execute o comando ***show bgp ipv4 unicast summary***, compare com a saída de exemplo abaixo:
+5. Verificar neighbors IPv4 no ***RTB***, execute o comando ***show bgp ipv4 unicast summary***, compare com a saída de exemplo abaixo:
 
 >
 	RTB#show bgp ipv4 unicast summary
@@ -227,7 +227,7 @@ COMANDO | DESCRIÇÃO
 	! isso significa que a conexão com peer está Aberta(Open), que é o estado
 	! desejado, esse número representa a quantidade de prefixos recebidos.
 
-6. Verificar neigbors IPv6 no ***RTB***, execute o comando ***show bgp ipv6 unicast summary***, compare com a saída de exemplo abaixo:
+6. Verificar neighbors IPv6 no ***RTB***, execute o comando ***show bgp ipv6 unicast summary***, compare com a saída de exemplo abaixo:
 
 >
 	RTB#show bgp ipv6 unicast summary 
@@ -304,7 +304,7 @@ COMANDO | DESCRIÇÃO
 ### Tarefa 04
 1. Acessar a console do ***RTC***.
 
-2. Verificar neigbors IPv4 no ***RTC***, execute o comando ***show ip bgp summary***, compare com a saída de exemplo abaixo:
+2. Verificar neighbors IPv4 no ***RTC***, execute o comando ***show ip bgp summary***, compare com a saída de exemplo abaixo:
 
 >
 	RTC#show ip bgp summary
@@ -322,7 +322,7 @@ COMANDO | DESCRIÇÃO
 	2.2.2.2         4          100       6       8        4    0    0 00:03:10        0
 	RTC#
 
-2. Verificar neigbors IPv4/IPv6 no ***RTC***, execute o comando ***show bgp all summary***, compare com a saída de exemplo abaixo:
+2. Verificar neighbors IPv4/IPv6 no ***RTC***, execute o comando ***show bgp all summary***, compare com a saída de exemplo abaixo:
 
 >
 	RTC#show bgp all summary
@@ -431,7 +431,7 @@ COMANDO | DESCRIÇÃO
 	! deveria estar acontecendo.
 	
 	! o comportamento padrão do BGP é inserir todos os peers no IPv4.
-4. Verificar neigbors IPv4/IPv6 no ***RTB***, execute o comando ***show bgp all summary***, compare com a saída de exemplo abaixo:
+4. Verificar neighbors IPv4/IPv6 no ***RTB***, execute o comando ***show bgp all summary***, compare com a saída de exemplo abaixo:
 
 >
 	RTB#show bgp all summary
@@ -659,7 +659,7 @@ COMANDO | DESCRIÇÃO
 	 exit-address-family
 	RTA#
 
-7. Verificar neigbors IPv4/IPv6 no ***RTA***, execute o comando ***show bgp all summary***, compare com a saída de exemplo abaixo:
+7. Verificar neighbors IPv4/IPv6 no ***RTA***, execute o comando ***show bgp all summary***, compare com a saída de exemplo abaixo:
 
 >
 	RTA#show bgp all summary
@@ -755,7 +755,7 @@ COMANDO | DESCRIÇÃO
 	 exit-address-family
 	RTB#
 
-5. Verificar neigbors IPv4/IPv6 no ***RTB***, execute o comando ***show bgp all summary***, compare com a saída de exemplo abaixo:
+5. Verificar neighbors IPv4/IPv6 no ***RTB***, execute o comando ***show bgp all summary***, compare com a saída de exemplo abaixo:
 
 >
 	RTB#show bgp all summary
