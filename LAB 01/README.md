@@ -71,7 +71,7 @@ COMANDO | DESCRIÇÃO
 
 4. ***Clicar no icone do RTA***
 
-5. ![RTA](https://raw.githubusercontent.com/leandropinheiro/BGP101/master/img/RTA-console.png)
+5. ![RTA](https://raw.githubusercontent.com/leandropinheiro/BGP101/master/img/RTA_console.png)
 
 6. Deve abrir uma sessão de terminal com o *prompt* de *login* do roteador ***RTA***.
 
