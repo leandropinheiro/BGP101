@@ -105,7 +105,7 @@ COMANDO | DESCRIÇÃO
 	!
 	write
 
-8. Verificar neigbors IPv4 no RTA, execute o comando *show ip bgp summary*, compare com a saida de exemplo abaixo:
+8. Verificar neigbors IPv4 no RTA, execute o comando ***show ip bgp summary***, compare com a saída de exemplo abaixo:
 
 >
 	RTA#show ip bgp summary
@@ -115,5 +115,10 @@ COMANDO | DESCRIÇÃO
 	Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
 	1.1.1.2         4          100       0       0        1    0    0 never    Idle
 	RTA#
+	
+	! veja que no Up/Down = never
+	! isso significa que a conexão BGP nunca ficou ativa antes
+	! Veja que o State = Idle
+	! isso significa que a conexão com peer está Down
 
-
+9. Verificar os prefixos IPv4 no RTA, execute o comando ***show ip bgp***, com
