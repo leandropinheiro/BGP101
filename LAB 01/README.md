@@ -105,7 +105,7 @@ COMANDO | DESCRIÇÃO
 	!
 	write
 
-8. Verificar neigbors IPv4 no RTA, execute o comando ***show ip bgp summary***, compare com a saída de exemplo abaixo:
+8. Verificar neigbors IPv4 no **RTA**, execute o comando ***show ip bgp summary***, compare com a saída de exemplo abaixo:
 
 >
 	RTA#show ip bgp summary
@@ -118,10 +118,11 @@ COMANDO | DESCRIÇÃO
 	
 	! veja que no Up/Down = never.
 	! isso significa que a conexão BGP nunca ficou ativa antes.
+	
 	! Veja que o State = Idle.
 	! isso significa que a conexão com peer está Down.
 
-9. Verificar os prefixos IPv4 no RTA, execute o comando ***show ip bgp***, compare com a saída de exemplo abaixo:
+9. Verificar os prefixos IPv4 no **RTA**, execute o comando ***show ip bgp***, compare com a saída de exemplo abaixo:
 
 >
 	RTA#show ip bgp         
@@ -134,3 +135,81 @@ COMANDO | DESCRIÇÃO
 	! injetando nenhum prexio no BGP.
 
 ### Tarefa 02
+1. ***Clicar no icone do RTB***.
+
+2. Deve abrir uma sessão de terminal com o *prompt* de *login* do roteador ***RTB***.
+
+3. Efetue o login com as credênciais fornecidas acima.
+
+4. Execute o script abaixo:
+
+>
+	! para entrar no modo de confiugração, a partir do prompt #
+	!
+	configure terminal
+	! muda para o prompt (config)#
+	!
+	! cria o processo BGP no ASN 100
+	!
+	router bgp 100
+	!
+	! adiciona o peer IPv4 1.1.1.1 no ASN 100 (iBGP)
+	!
+	neighbor 1.1.1.1 remote-as 100
+	!
+	! adiciona o peer IPv4 2.2.2.1 no ASN 200 (eBGP)
+	!
+	neighbor 2.2.2.1 remote-as 200
+	!
+	! adiciona o peer IPv6 1::1 no ASN 100 (iBGP)
+	!
+	neighbor 1::1 remote-as 100
+	!
+	! adiciona o peer IPv6 2::1 no ASN 200 (eBGP)
+	!
+	neighbor 2::1 remote-as 200
+	!
+	! sai do modo de configuração, retorna ao prompt #
+	!
+	end
+	!
+	! salva a alteração de configuração
+	!
+	write
+
+5. Verificar neigbors IPv4 no **RTB**, execute o comando ***show bgp ipv4 unicast summary***, compare com a saída de exemplo abaixo:
+
+>
+	RTB#show bgp ipv4 unicast summary
+	BGP router identifier 2.2.2.2, local AS number 100
+	BGP table version is 1, main routing table version 1
+	3 network entries using 420 bytes of memory
+	3 path entries using 240 bytes of memory
+	1/0 BGP path/bestpath attribute entries using 144 bytes of memory
+	1 BGP AS-PATH entries using 24 bytes of memory
+	0 BGP route-map cache entries using 0 bytes of memory
+	0 BGP filter-list cache entries using 0 bytes of memory
+	BGP using 828 total bytes of memory
+	BGP activity 3/0 prefixes, 3/0 paths, scan interval 60 secs
+
+	Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
+	1.1.1.1         4          100       2       2        1    0    0 00:00:08        0
+	2.2.2.1         4          200       5       2        1    0    0 00:00:09        3
+	RTB#
+	
+	! veja que no Up/Down = never.
+	! isso significa que a conexão BGP nunca ficou ativa antes.
+	! Veja que o State = Idle.
+	! isso significa que a conexão com peer está Down.
+
+9. Verificar os prefixos IPv4 no **RTB**, execute o comando ***show ip bgp***, compare com a saída de exemplo abaixo:
+
+>
+	RTA#show ip bgp         
+	RTA#
+	
+	! veja que não há saída nenhuma.
+	! isso significa que não há prefixo na Topologia do BGP
+	! os motivos são dois: 1) não há conexão Up com nenhum peer
+	! que possa injetar prefixos, 2) o roteador local não está
+	! injetando nenhum prexio no BGP.
