@@ -851,4 +851,4 @@ COMANDO | DESCRIÇÃO
 	 * i 201::/64         2::1                     0    100      0 200 ?
 	RTA#
 	
-	! veja que agora finalmente o RTA recebe os prefixos IPv6.
+	! veja que agora finalmente o RTA recebeu os prefixos IPv6.
