@@ -69,10 +69,40 @@ COMANDO | DESCRIÇÃO
 
 3. Aguardar os roteadores mudarem da cor cinza para azul.
 
-4. ***Clicar no icone do RTA***
+4. ***Clicar no icone do RTA***.
 
 5. ![RTA](https://raw.githubusercontent.com/leandropinheiro/BGP101/master/img/RTA_console.png)
 
 6. Deve abrir uma sessão de terminal com o *prompt* de *login* do roteador ***RTA***.
 
-7. Efetue o login com 
+7. Efetue o login com as credênciais fornecidas acima.
+
+8. Execute o script abaixo:
+
+>
+	! para entrar no modo de confiugração, a partir do prompt #
+	!
+	configure terminal
+	! muda para o prompt (config)#
+	!
+	! cria o processo BGP no ASN 100
+	!
+	router bgp 100
+	!
+	! adiciona o peer IPv4 1.1.1.2 no ASN 100 (iBGP)
+	!
+	neighbor 1.1.1.2 remote-as 100
+	!
+	! adiciona o peer IPv6 1::2 no ASN 100 (iBGP)
+	!
+	neighbor 1::2 remote-as 100
+	!
+	! sai do modo de configuração, retorna ao prompt #
+	!
+	end
+	!
+	! salva a alteração de configuração
+	!
+	write
+
+9. Verificar 
