@@ -201,6 +201,7 @@ COMANDO | DESCRIÇÃO
 	
 	! veja que no Up/Down = Tempo.
 	! isso significa que a conexão BGP ficou ativa antes e caiu, ou está ativa.
+	
 	! veja que o State/PfxRcd = número.
 	! isso significa que a conexão com peer está Aberta(Open), que é o estado
 	! desejado, esse número representa a quantidade de prefixos recebidos.
