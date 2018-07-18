@@ -53,6 +53,8 @@ COMANDO | DESCRIÇÃO
 *show bgp ipv6 unicast*|Exibe os Prefixos IPv6 do protocolo BGP
 *show ip route*|Exibe as rotas IPv4 na RIB (tabela de rotas)
 *show ipv6 route*|Exibe as rotas IPv6 na RIB (tabela de rotas)
+*show all bgp summary*|Exibe o resumo dos neighbors IPv4 e IPv6 do protocolo BGP
+*show all bgp*|Exibe os Prefixos IPv4 e IPv6 do protocolo BGP
 *router bgp 100*|Cria/configura um processo BGP com o ASN 100
 *bgp default ipv4-unicast*|Inclui os neighbors BGP automaticamente no *address-family ipv4* e ativa os mesmos, mesmo que o neighbor seja IPv6
 *syncronization*|Sincroniza o FIB do BGP com a RIB criada por um IGP
@@ -105,7 +107,7 @@ COMANDO | DESCRIÇÃO
 	!
 	write
 
-8. Verificar neigbors IPv4 no **RTA**, execute o comando ***show ip bgp summary***, compare com a saída de exemplo abaixo:
+8. Verificar neigbors IPv4 no ***RTA***, execute o comando ***show ip bgp summary***, compare com a saída de exemplo abaixo:
 
 >
 	RTA#show ip bgp summary
@@ -119,10 +121,10 @@ COMANDO | DESCRIÇÃO
 	! veja que no Up/Down = never.
 	! isso significa que a conexão BGP nunca ficou ativa antes.
 	
-	! Veja que o State = Idle.
+	! Veja que o State/PfxRcd = Idle.
 	! isso significa que a conexão com peer está Down.
 
-9. Verificar os prefixos IPv4 no **RTA**, execute o comando ***show ip bgp***, compare com a saída de exemplo abaixo:
+9. Verificar os prefixos IPv4 no ***RTA***, execute o comando ***show ip bgp***, compare com a saída de exemplo abaixo:
 
 >
 	RTA#show ip bgp         
@@ -177,7 +179,7 @@ COMANDO | DESCRIÇÃO
 	!
 	write
 
-5. Verificar neigbors IPv4 no **RTB**, execute o comando ***show bgp ipv4 unicast summary***, compare com a saída de exemplo abaixo:
+5. Verificar neigbors IPv4 no ***RTB***, execute o comando ***show bgp ipv4 unicast summary***, compare com a saída de exemplo abaixo:
 
 >
 	RTB#show bgp ipv4 unicast summary
@@ -197,19 +199,167 @@ COMANDO | DESCRIÇÃO
 	2.2.2.1         4          200       5       2        1    0    0 00:00:09        3
 	RTB#
 	
-	! veja que no Up/Down = never.
-	! isso significa que a conexão BGP nunca ficou ativa antes.
-	! Veja que o State = Idle.
-	! isso significa que a conexão com peer está Down.
+	! veja que no Up/Down = Tempo.
+	! isso significa que a conexão BGP ficou ativa antes e caiu, ou está ativa.
+	! veja que o State/PfxRcd = número.
+	! isso significa que a conexão com peer está Aberta(Open), que é o estado
+	! desejado, esse número representa a quantidade de prefixos recebidos.
 
-9. Verificar os prefixos IPv4 no **RTB**, execute o comando ***show ip bgp***, compare com a saída de exemplo abaixo:
+6. Verificar neigbors IPv6 no ***RTB***, execute o comando ***show bgp ipv6 unicast summary***, compare com a saída de exemplo abaixo:
 
 >
-	RTA#show ip bgp         
+	RTB#show bgp ipv6 unicast summary 
+	
+	RTB#
+	
+	! veja que no não há saida nenhuma.
+	! isso significa que o peering IPv6 não está configurado, ou não está
+	! ativado corretamente.
+
+9. Verificar os prefixos IPv4 no ***RTB***, execute o comando ***show ip bgp***, compare com a saída de exemplo abaixo:
+
+>
+	RTB#show ip bgp 
+	BGP table version is 4, local router ID is 2.2.2.2
+	Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+	              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+	              x best-external, a additional-path, c RIB-compressed, 
+	Origin codes: i - IGP, e - EGP, ? - incomplete
+	RPKI validation codes: V valid, I invalid, N Not found
+	
+	     Network          Next Hop            Metric LocPrf Weight Path
+	 r>  2.2.2.0/24       2.2.2.1                  0             0 200 ?
+	 *>  200.0.0.0        2.2.2.1                  0             0 200 ?
+	 *>  201.0.0.0        2.2.2.1                  0             0 200 ?
+	RTB#
+	
+	! veja que há prefixos na Tolologia BGP.
+	! isso significa que temos ao menos um peering ativo, ou que o roteador
+	! local está injetando prefixos.
+	
+	! observe em Next Hop que o IP pertence ao RTC.
+	! Se não houve manipulação do prefixo, isso significa que o prefixo
+	! foi originado no RTC.
+	
+	! observe o Path, ele indica a quantidade de saltos de ASN do prefixo.
+	! a leitura do Path deve ser realziada de trás para frente, o último
+	! ASN é o primeiro ASN do Path, geralmente significa que o prefixo se
+	! origina nesse ASN.
+	
+	! no nosso LAB todos os Prefixos são originados no RTC, pois apenas ele
+	! está injetando prefixos no BGP.
+
+### Tarefa 03
+1. Acessar a console do ***RTA***.
+
+2. Verificar os prefixos IPv4 no ***RTA***, execute o comando ***show ip bgp***, compare com a saída de exemplo abaixo:
+
+>
+	RTA#show ip bgp        
+	BGP table version is 1, local router ID is 1.1.1.1
+	Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+	              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+	              x best-external, a additional-path, c RIB-compressed, 
+	Origin codes: i - IGP, e - EGP, ? - incomplete
+	RPKI validation codes: V valid, I invalid, N Not found
+	
+	     Network          Next Hop            Metric LocPrf Weight Path
+	 * i 2.2.2.0/24       2.2.2.1                  0    100      0 200 ?
+	 * i 200.0.0.0        2.2.2.1                  0    100      0 200 ?
+	 * i 201.0.0.0        2.2.2.1                  0    100      0 200 ?
 	RTA#
 	
-	! veja que não há saída nenhuma.
-	! isso significa que não há prefixo na Topologia do BGP
-	! os motivos são dois: 1) não há conexão Up com nenhum peer
-	! que possa injetar prefixos, 2) o roteador local não está
-	! injetando nenhum prexio no BGP.
+	! veja que agora temos prefixos.
+	! isso siginifica que temos ao menos um peering Open.
+	!
+	! veja que logo no inicio das linhas após o "*", temos um "i".
+	! isso significa que o prefixo foi aprendido via um peer iBGP.
+	!
+	! o simbolo "?" no final da linha de cada prefixo, indica que
+	! a origem do mesmo é incompleta, geralmente significa que foi
+	! injetado no BGP via redistribuição.
+
+### Tarefa 04
+1. Acessar a console do ***RTC***.
+
+2. Verificar neigbors IPv4 no ***RTC***, execute o comando ***show ip bgp summary***, compare com a saída de exemplo abaixo:
+
+>
+	RTC#show ip bgp summary
+	BGP router identifier 2.2.2.1, local AS number 200
+	BGP table version is 4, main routing table version 4
+	3 network entries using 420 bytes of memory
+	3 path entries using 240 bytes of memory
+	1/1 BGP path/bestpath attribute entries using 144 bytes of memory
+	0 BGP route-map cache entries using 0 bytes of memory
+	0 BGP filter-list cache entries using 0 bytes of memory
+	BGP using 804 total bytes of memory
+	BGP activity 6/0 prefixes, 6/0 paths, scan interval 60 secs
+	
+	Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
+	2.2.2.2         4          100       6       8        4    0    0 00:03:10        0
+	RTC#
+
+2. Verificar neigbors IPv4/IPv6 no ***RTC***, execute o comando ***show bgp all summary***, compare com a saída de exemplo abaixo:
+
+>
+	RTC#show bgp all summary
+	For address family: IPv4 Unicast
+	BGP router identifier 2.2.2.1, local AS number 200
+	BGP table version is 4, main routing table version 4
+	3 network entries using 420 bytes of memory
+	3 path entries using 240 bytes of memory
+	1/1 BGP path/bestpath attribute entries using 144 bytes of memory
+	0 BGP route-map cache entries using 0 bytes of memory
+	0 BGP filter-list cache entries using 0 bytes of memory
+	BGP using 804 total bytes of memory
+	BGP activity 6/0 prefixes, 6/0 paths, scan interval 60 secs
+	
+	Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
+	2.2.2.2         4          100       7       9        4    0    0 00:03:39        0
+	
+	For address family: IPv6 Unicast
+	BGP router identifier 2.2.2.1, local AS number 200
+	BGP table version is 4, main routing table version 4
+	3 network entries using 492 bytes of memory
+	3 path entries using 312 bytes of memory
+	1/1 BGP path/bestpath attribute entries using 144 bytes of memory
+	0 BGP route-map cache entries using 0 bytes of memory
+	0 BGP filter-list cache entries using 0 bytes of memory
+	BGP using 948 total bytes of memory
+	BGP activity 6/0 prefixes, 6/0 paths, scan interval 60 secs
+	
+	Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
+	2::2            4          100       0       0        1    0    0 00:10:07 Idle
+	RTC#
+	
+	! Veja que a saída do comando exibe os preficos IPv4 e IPv6 simultaneamente.
+
+3. Verificar a configuração BGP no ***RTC***, execute o comando ***show running-config view full | section bgp***, compare com a saída de exemplo abaixo:
+
+>
+	RTC#show running-config view full | section bgp
+	router bgp 200
+	 bgp log-neighbor-changes
+	 no bgp default ipv4-unicast
+	 neighbor 2::2 remote-as 100
+	 neighbor 2.2.2.2 remote-as 100
+	 !
+	 address-family ipv4
+	  redistribute connected
+	  neighbor 2.2.2.2 activate
+	 exit-address-family
+	 !
+	 address-family ipv6
+	  redistribute connected
+	  neighbor 2::2 activate
+	 exit-address-family
+	RTC#
+	
+	! o comando é ligeiramente diferente aqui, conta com "view full",
+	! essa parte server para mostra a configuração completa em um roteador
+	! utilizando a função "parser view".
+	
+	! o "| section bgp" filtra a saída do comando para mostrar apenas a
+	! parte referente a configuração BGP.
+
