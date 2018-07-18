@@ -61,7 +61,7 @@ COMANDO | DESCRIÇÃO
 *neighbor 1.1.1.1 active*|Ativa uma conexão de peering BGP com o roteador 1.1.1.1
 *neighbor 1.1.1.1 next-hop-self*|Subititui o endereço do *next hop* dos prefixos enviados ao peer 1.1.1.1, com o endereço ip local
 
-## ATIVIDADES DOS LAB 01
+## ATIVIDADES DO LAB 01
 ### Tarefa 01
 1. O aluno deve acessar o LAB 01.
 
