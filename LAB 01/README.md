@@ -71,13 +71,13 @@ COMANDO | DESCRIÇÃO
 
 4. ***Clicar no icone do RTA***.
 
-5. ![RTA](https://raw.githubusercontent.com/leandropinheiro/BGP101/master/img/RTA_console.png)
+![RTA](https://raw.githubusercontent.com/leandropinheiro/BGP101/master/img/RTA_console.png)
 
-6. Deve abrir uma sessão de terminal com o *prompt* de *login* do roteador ***RTA***.
+5. Deve abrir uma sessão de terminal com o *prompt* de *login* do roteador ***RTA***.
 
-7. Efetue o login com as credênciais fornecidas acima.
+6. Efetue o login com as credênciais fornecidas acima.
 
-8. Execute o script abaixo:
+7. Execute o script abaixo:
 
 >
 	! para entrar no modo de confiugração, a partir do prompt #
@@ -105,4 +105,15 @@ COMANDO | DESCRIÇÃO
 	!
 	write
 
-9. Verificar 
+8. Verificar neigbors IPv4 no RTA, execute o comando *show ip bgp summary*, compare com a saida de exemplo abaixo:
+
+>
+	RTA#show ip bgp summary
+	BGP router identifier 1.1.1.1, local AS number 100
+	BGP table version is 1, main routing table version 1
+	
+	Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
+	1.1.1.2         4          100       0       0        1    0    0 never    Idle
+	RTA#
+
+
