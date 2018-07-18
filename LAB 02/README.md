@@ -384,7 +384,7 @@ COMANDO | DESCRIÇÃO
 	! veja que agora as rotas estão na RIB, e o next hop é o endereço do RTB
 	! na rede em comum com o RTA (e0/0 - 1.1.1.0/24)
 
-13. Verificar prefixos IPv4 tabela de rotas (RIB) do ***RTA***, execute o comando ***show ip route***, compare com a saída de exemplo abaixo:
+14. Verificar prefixos IPv6 tabela de rotas (RIB) do ***RTA***, execute o comando ***show ip route***, compare com a saída de exemplo abaixo:
 
 >
 	RTA#show ipv6 route 
@@ -421,3 +421,595 @@ COMANDO | DESCRIÇÃO
 	
 	! veja que o mesmo que ocorreu no IPv4 também está valendo para o IPv6.
 
+### Tarefa 02
+1. Acessar a console do ***RTA***.
+
+2. Execute o script abaixo:
+
+>
+	configure terminal
+	
+	router bgp 100
+	address-family ipv4
+	network 1.1.1.0 mask 255.255.255.0
+	network 100.0.0.0 mask 255.255.255.0
+	network 101.0.0.0 mask 255.255.0.0
+	address-family ipv6
+	network 1::/64
+	network 100::/64
+	network 101::/64
+	end
+	write
+	
+	! estamos aplicando o comando network para injetar os prefixos das interfaces
+	! do RTA na topologia do BGP.
+
+3. Acessar a console do ***RTC***.
+
+4. Verificar prefixos IPv4/IPv6 no ***RTC***, execute o comando ***show bgp all***, compare com a saída de exemplo abaixo:
+
+>
+	RTC#sh bgp all
+	For address family: IPv4 Unicast
+	
+	BGP table version is 6, local router ID is 201.0.0.1
+	Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+	              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+	              x best-external, a additional-path, c RIB-compressed, 
+	Origin codes: i - IGP, e - EGP, ? - incomplete
+	RPKI validation codes: V valid, I invalid, N Not found
+	
+	     Network          Next Hop            Metric LocPrf Weight Path
+	 *>  1.1.1.0/24       2.2.2.2                                0 100 i
+	 *>  2.2.2.0/24       0.0.0.0                  0         32768 ?
+	 *>  100.0.0.0/24     2.2.2.2                                0 100 i
+	 *>  200.0.0.0        0.0.0.0                  0         32768 ?
+	 *>  201.0.0.0        0.0.0.0                  0         32768 ?
+	
+	For address family: IPv6 Unicast
+	
+	BGP table version is 7, local router ID is 201.0.0.1
+	Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+	              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+	              x best-external, a additional-path, c RIB-compressed, 
+	Origin codes: i - IGP, e - EGP, ? - incomplete
+	RPKI validation codes: V valid, I invalid, N Not found
+	
+	     Network          Next Hop            Metric LocPrf Weight Path
+	 *>  1::/64           2::2                                   0 100 i
+	 *>  2::/64           ::                       0         32768 ?
+	 *>  100::/64         2::2                                   0 100 i
+	 *>  101::/64         2::2                                   0 100 i
+	 *>  200::/64         ::                       0         32768 ?
+	 *>  201::/64         ::                       0         32768 ?
+	
+	For address family: IPv4 Multicast
+	
+	
+	For address family: MVPNv4 Unicast
+	
+	RTC#
+	
+	! devemos observar três coisas:
+	
+	! a primeira é que quando o Next Hop é 0.0.0.0 (IPv4) ou :: (IPv6),
+	! significa que o prefixo se originou no roteador local.
+	
+	! a segunda é que os prefixos originados no RTA agora estão aparecendo na
+	! topologia do BGP, e o Next Hop é o endereço local do RTB, devido a utilização
+	! da opção next-hop-self.
+	
+	! a terceira é que o prefixo 101.0.0.0/24 não consta da topologia BGP no RTC.
+
+5. Acessar a console do ***RTA***.
+
+6. Verificar a configuração BGP no ***RTA***, execute o comando ***show running-config | section bgp***, compare com a saída de exemplo abaixo:
+
+>
+	RTA#show running-config | section bgp
+	router bgp 100
+	 bgp log-neighbor-changes
+	 no bgp default ipv4-unicast
+	 neighbor 1::2 remote-as 100
+	 neighbor 1.1.1.2 remote-as 100
+	 !
+	 address-family ipv4
+	  network 1.1.1.0 mask 255.255.255.0
+	  network 100.0.0.0 mask 255.255.255.0
+	  network 101.0.0.0 mask 255.255.0.0
+	  neighbor 1.1.1.2 activate
+	 exit-address-family
+	 !
+	 address-family ipv6
+	  network 1::/64
+	  network 100::/64
+	  network 101::/64
+	  neighbor 1::2 activate
+	 exit-address-family
+	RTA#
+
+7. Verificar prefixos IPv4 tabela de rotas (RIB) do ***RTA***, execute o comando ***show ip route***, compare com a saída de exemplo abaixo:
+
+>
+	RTA#show ip route 
+	Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+	       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area 
+	       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+	       E1 - OSPF external type 1, E2 - OSPF external type 2
+	       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+	       ia - IS-IS inter area, * - candidate default, U - per-user static route
+	       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+	       a - application route
+	       + - replicated route, % - next hop override
+	
+	Gateway of last resort is not set
+	
+	      1.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
+	C        1.1.1.0/24 is directly connected, Ethernet0/0
+	L        1.1.1.1/32 is directly connected, Ethernet0/0
+	      2.0.0.0/24 is subnetted, 1 subnets
+	B        2.2.2.0 [200/0] via 1.1.1.2, 00:22:02
+	      100.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
+	C        100.0.0.0/24 is directly connected, Loopback0
+	L        100.0.0.1/32 is directly connected, Loopback0
+	      101.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
+	C        101.0.0.0/24 is directly connected, Loopback1
+	L        101.0.0.1/32 is directly connected, Loopback1
+	B     200.0.0.0/24 [200/0] via 1.1.1.2, 00:22:02
+	B     201.0.0.0/24 [200/0] via 1.1.1.2, 00:22:02
+	RTA#
+	
+	! observe que na configuração BGP do RTA o network está 101.0.0.0/16.
+	! na RIP não temos nenhum prefixo 101.0.0.0/16, apenas /8, /24.
+	
+	! o comportamento do comando network no BGP é diferente dos IGPs.
+	! no BGP ele verifica a RIB e injeta no BGP o prefixo extado que foi
+	! configurado.
+
+8. Execute o script abaixo:
+
+>
+	configure terminal
+	
+	router bgp 100
+	address-family ipv4
+	no network 101.0.0.0 mask 255.255.0.0
+	network 101.0.0.0 mask 255.255.255.0
+	end
+	write
+	
+	! removemos o prefixo 101.0.0.0/16, e adicionamos o 101.0.0.0/24 que existe
+	! na RIB do equipamento.
+
+9. Acessar a console do ***RTC***.
+
+10. Verificar prefixos IPv4 no ***RTC***, execute o comando ***show ip bgp***, compare com a saída de exemplo abaixo:
+
+>
+	RTC#show ip bgp
+	BGP table version is 7, local router ID is 201.0.0.1
+	Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+	              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+	              x best-external, a additional-path, c RIB-compressed, 
+	Origin codes: i - IGP, e - EGP, ? - incomplete
+	RPKI validation codes: V valid, I invalid, N Not found
+	
+	     Network          Next Hop            Metric LocPrf Weight Path
+	 *>  1.1.1.0/24       2.2.2.2                                0 100 i
+	 *>  2.2.2.0/24       0.0.0.0                  0         32768 ?
+	 *>  100.0.0.0/24     2.2.2.2                                0 100 i
+	 *>  101.0.0.0/24     2.2.2.2                                0 100 i
+	 *>  200.0.0.0        0.0.0.0                  0         32768 ?
+	 *>  201.0.0.0        0.0.0.0                  0         32768 ?
+	RTC#
+	
+	! agora temos o prefixo 101.0.0.0/24 na topologia BGP do RTC.
+
+### Tarefa 03
+1. Acessar a console do ***RTA***.
+
+2. Verificar prefixos IPv4/IPv6 no ***RTA***, execute o comando ***show bgp all***, compare com a saída de exemplo abaixo:
+
+>
+	RTA#show bgp all
+	For address family: IPv4 Unicast
+	
+	BGP table version is 7, local router ID is 101.0.0.1
+	Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+	              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+	              x best-external, a additional-path, c RIB-compressed, 
+	Origin codes: i - IGP, e - EGP, ? - incomplete
+	RPKI validation codes: V valid, I invalid, N Not found
+	
+	     Network          Next Hop            Metric LocPrf Weight Path
+	 *>  1.1.1.0/24       0.0.0.0                  0         32768 i
+	 *>i 2.2.2.0/24       1.1.1.2                  0    100      0 200 ?
+	 *>  100.0.0.0/24     0.0.0.0                  0         32768 i
+	 *>  101.0.0.0/24     0.0.0.0                  0         32768 i
+	 *>i 200.0.0.0        1.1.1.2                  0    100      0 200 ?
+	 *>i 201.0.0.0        1.1.1.2                  0    100      0 200 ?
+	
+	For address family: IPv6 Unicast
+	
+	BGP table version is 7, local router ID is 101.0.0.1
+	Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+	              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+	              x best-external, a additional-path, c RIB-compressed, 
+	Origin codes: i - IGP, e - EGP, ? - incomplete
+	RPKI validation codes: V valid, I invalid, N Not found
+	
+	     Network          Next Hop            Metric LocPrf Weight Path
+	 *>  1::/64           ::                       0         32768 i
+	 *>i 2::/64           1::2                     0    100      0 200 ?
+	 *>  100::/64         ::                       0         32768 i
+	 *>  101::/64         ::                       0         32768 i
+	 *>i 200::/64         1::2                     0    100      0 200 ?
+	 *>i 201::/64         1::2                     0    100      0 200 ?
+	
+	For address family: IPv4 Multicast
+	
+	
+	For address family: MVPNv4 Unicast
+	
+	RTA#
+
+3. Acessar a console do ***RTC***.
+
+4. Verificar prefixos IPv4/IPv6 no ***RTC***, execute o comando ***show bgp all***, compare com a saída de exemplo abaixo:
+
+>
+	RTC#show bgp all
+	For address family: IPv4 Unicast
+	
+	BGP table version is 7, local router ID is 201.0.0.1
+	Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+	              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+	              x best-external, a additional-path, c RIB-compressed, 
+	Origin codes: i - IGP, e - EGP, ? - incomplete
+	RPKI validation codes: V valid, I invalid, N Not found
+	
+	     Network          Next Hop            Metric LocPrf Weight Path
+	 *>  1.1.1.0/24       2.2.2.2                                0 100 i
+	 *>  2.2.2.0/24       0.0.0.0                  0         32768 ?
+	 *>  100.0.0.0/24     2.2.2.2                                0 100 i
+	 *>  101.0.0.0/24     2.2.2.2                                0 100 i
+	 *>  200.0.0.0        0.0.0.0                  0         32768 ?
+	 *>  201.0.0.0        0.0.0.0                  0         32768 ?
+	
+	For address family: IPv6 Unicast
+	
+	BGP table version is 7, local router ID is 201.0.0.1
+	Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+	              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+	              x best-external, a additional-path, c RIB-compressed, 
+	Origin codes: i - IGP, e - EGP, ? - incomplete
+	RPKI validation codes: V valid, I invalid, N Not found
+	
+	     Network          Next Hop            Metric LocPrf Weight Path
+	 *>  1::/64           2::2                                   0 100 i
+	 *>  2::/64           ::                       0         32768 ?
+	 *>  100::/64         2::2                                   0 100 i
+	 *>  101::/64         2::2                                   0 100 i
+	 *>  200::/64         ::                       0         32768 ?
+	 *>  201::/64         ::                       0         32768 ?
+	
+	For address family: IPv4 Multicast
+	
+	
+	For address family: MVPNv4 Unicast
+	
+	RTC#
+	
+	! observe que não temos nenhum prefixo originado no RTB, apenas as redes
+	! injetadas pelos roteadores RTA e RTC.
+
+5. Acessar a console do ***RTB***.
+
+6. Verificar a configuração BGP no ***RTB***, execute o comando ***show running-config | section bgp***, compare com a saída de exemplo abaixo:
+
+>
+	RTB#show running-config | sec bgp
+	router bgp 100
+	 bgp log-neighbor-changes
+	 no bgp default ipv4-unicast
+	 neighbor 1::1 remote-as 100
+	 neighbor 2::1 remote-as 200
+	 neighbor 1.1.1.1 remote-as 100
+	 neighbor 2.2.2.1 remote-as 200
+	 !
+	 address-family ipv4
+	  neighbor 1.1.1.1 activate
+	  neighbor 1.1.1.1 next-hop-self
+	  neighbor 2.2.2.1 activate
+	  neighbor 2.2.2.1 next-hop-self
+	 exit-address-family
+	 !
+	 address-family ipv6
+	  neighbor 1::1 activate
+	  neighbor 1::1 next-hop-self
+	  neighbor 2::1 activate
+	  neighbor 2::1 next-hop-self
+	 exit-address-family
+	RTB#
+	
+	! podemos verificar que não temos nenhum comando network ou redistribute,
+	! com isso nenhuma rede do RTB está sendo injetada no BGP.
+
+7. Verificar prefixos IPv4/IPv6 no ***RTB***, execute o comando ***show bgp all***, compare com a saída de exemplo abaixo:
+
+>
+	RTB#show bgp all
+	For address family: IPv4 Unicast
+	
+	BGP table version is 7, local router ID is 2.2.2.2
+	Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+	              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+	              x best-external, a additional-path, c RIB-compressed, 
+	Origin codes: i - IGP, e - EGP, ? - incomplete
+	RPKI validation codes: V valid, I invalid, N Not found
+	
+	     Network          Next Hop            Metric LocPrf Weight Path
+	 r>i 1.1.1.0/24       1.1.1.1                  0    100      0 i
+	 r>  2.2.2.0/24       2.2.2.1                  0             0 200 ?
+	 *>i 100.0.0.0/24     1.1.1.1                  0    100      0 i
+	 *>i 101.0.0.0/24     1.1.1.1                  0    100      0 i
+	 *>  200.0.0.0        2.2.2.1                  0             0 200 ?
+	 *>  201.0.0.0        2.2.2.1                  0             0 200 ?
+	
+	For address family: IPv6 Unicast
+	
+	BGP table version is 7, local router ID is 2.2.2.2
+	Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+	              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+	              x best-external, a additional-path, c RIB-compressed, 
+	Origin codes: i - IGP, e - EGP, ? - incomplete
+	RPKI validation codes: V valid, I invalid, N Not found
+	
+	     Network          Next Hop            Metric LocPrf Weight Path
+	 r>i 1::/64           1::1                     0    100      0 i
+	 r>  2::/64           2::1                     0             0 200 ?
+	 *>i 100::/64         1::1                     0    100      0 i
+	 *>i 101::/64         1::1                     0    100      0 i
+	 *>  200::/64         2::1                     0             0 200 ?
+	 *>  201::/64         2::1                     0             0 200 ?
+	
+	For address family: IPv4 Multicast
+	
+	
+	For address family: MVPNv4 Unicast
+	
+	RTB#
+	
+	! observando os prefixos na tologia BGP, nenhum é originado no RTB,
+	! pois nenum tem como Next Hop 0.0.0.0 (IPv4) ou :: (IPv6).
+
+8. Execute o script abaixo:
+
+>
+	configure terminal
+	
+	router bgp 100
+	address-family ipv4
+	redistribute connected
+	exit
+	address-family ipv6
+	redistribute connected
+	end
+	write
+	
+	! diferente do RTA, optamos no RTB por utilizar redistribuição.
+
+9. Verificar prefixos IPv4/IPv6 no ***RTB***, execute o comando ***show bgp all***, compare com a saída de exemplo abaixo:
+
+>
+	RTB#show bgp all       
+	For address family: IPv4 Unicast
+	
+	BGP table version is 11, local router ID is 2.2.2.2
+	Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+	              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+	              x best-external, a additional-path, c RIB-compressed, 
+	Origin codes: i - IGP, e - EGP, ? - incomplete
+	RPKI validation codes: V valid, I invalid, N Not found
+	
+	     Network          Next Hop            Metric LocPrf Weight Path
+	 *>  1.1.1.0/24       0.0.0.0                  0         32768 ?
+	 * i                  1.1.1.1                  0    100      0 i
+	 *>  2.2.2.0/24       0.0.0.0                  0         32768 ?
+	 *                    2.2.2.1                  0             0 200 ?
+	 *>i 100.0.0.0/24     1.1.1.1                  0    100      0 i
+	 *>i 101.0.0.0/24     1.1.1.1                  0    100      0 i
+	 *>  110.0.0.0/24     0.0.0.0                  0         32768 ?
+	 *>  111.0.0.0/24     0.0.0.0                  0         32768 ?
+	 *>  200.0.0.0        2.2.2.1                  0             0 200 ?
+	 *>  201.0.0.0        2.2.2.1                  0             0 200 ?
+	
+	For address family: IPv6 Unicast
+	
+	BGP table version is 11, local router ID is 2.2.2.2
+	Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+	              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+	              x best-external, a additional-path, c RIB-compressed, 
+	Origin codes: i - IGP, e - EGP, ? - incomplete
+	RPKI validation codes: V valid, I invalid, N Not found
+	
+	     Network          Next Hop            Metric LocPrf Weight Path
+	 *>  1::/64           ::                       0         32768 ?
+	 * i                  1::1                     0    100      0 i
+	 *>  2::/64           ::                       0         32768 ?
+	 *                    2::1                     0             0 200 ?
+	 *>i 100::/64         1::1                     0    100      0 i
+	 *>i 101::/64         1::1                     0    100      0 i
+	 *>  110::/64         ::                       0         32768 ?
+	 *>  111::/64         ::                       0         32768 ?
+	 *>  200::/64         2::1                     0             0 200 ?
+	 *>  201::/64         2::1                     0             0 200 ?
+	
+	For address family: IPv4 Multicast
+	
+	
+	For address family: MVPNv4 Unicast
+	
+	RTB#
+	
+	! aqui podemos observar três coisas.
+	
+	! a primeira é que agora temos claramente prefixos originados no RTB.
+	
+	! a segunda é que os prefixos originados no RTB tem o Path = ?, isso
+	! significa que a origem está incompleta, acontece quando o BGP não tem
+	! certeza da origem do prefixo, geralmente está relacionado com rotas 
+	! redistribuidas.
+	
+	! a terceira é que os prefixos orifinados no RTA tem o Path = i, quando a
+	! origem é via um IGP, ou seja usando o comando network para sincronizar com
+	! prefixos existentes na RIP, o BGP valida o prefixo e adiciona a origem ao
+	! BGP.
+
+10. Verificar prefixos IPv4/IPv6 no ***RTA***, execute o comando ***show bgp all***, compare com a saída de exemplo abaixo:
+
+>
+	RTA#show bgp all
+	For address family: IPv4 Unicast
+	
+	BGP table version is 10, local router ID is 101.0.0.1
+	Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+	              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+	              x best-external, a additional-path, c RIB-compressed, 
+	Origin codes: i - IGP, e - EGP, ? - incomplete
+	RPKI validation codes: V valid, I invalid, N Not found
+	
+	     Network          Next Hop            Metric LocPrf Weight Path
+	 * i 1.1.1.0/24       1.1.1.2                  0    100      0 ?
+	 *>                   0.0.0.0                  0         32768 i
+	 *>i 2.2.2.0/24       1.1.1.2                  0    100      0 ?
+	 *>  100.0.0.0/24     0.0.0.0                  0         32768 i
+	 *>  101.0.0.0/24     0.0.0.0                  0         32768 i
+	 *>i 110.0.0.0/24     1.1.1.2                  0    100      0 ?
+	 *>i 111.0.0.0/24     1.1.1.2                  0    100      0 ?
+	 *>i 200.0.0.0        1.1.1.2                  0    100      0 200 ?
+	 *>i 201.0.0.0        1.1.1.2                  0    100      0 200 ?
+	
+	For address family: IPv6 Unicast
+	
+	BGP table version is 10, local router ID is 101.0.0.1
+	Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+	              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+	              x best-external, a additional-path, c RIB-compressed, 
+	Origin codes: i - IGP, e - EGP, ? - incomplete
+	RPKI validation codes: V valid, I invalid, N Not found
+	
+	     Network          Next Hop            Metric LocPrf Weight Path
+	 * i 1::/64           1::2                     0    100      0 ?
+	 *>                   ::                       0         32768 i
+	 *>i 2::/64           1::2                     0    100      0 ?
+	 *>  100::/64         ::                       0         32768 i
+	 *>  101::/64         ::                       0         32768 i
+	 *>i 110::/64         1::2                     0    100      0 ?
+	 *>i 111::/64         1::2                     0    100      0 ?
+	 *>i 200::/64         1::2                     0    100      0 200 ?
+	 *>i 201::/64         1::2                     0    100      0 200 ?
+	
+	For address family: IPv4 Multicast
+	
+		
+	For address family: MVPNv4 Unicast
+	
+	RTA#
+	
+	! veja que agora o RTA também tem os prefixos do RTB.
+
+11. Verificar prefixos IPv4/IPv6 no ***RTC***, execute o comando ***show bgp all***, compare com a saída de exemplo abaixo:
+
+>
+	RTC#show bgp all
+	For address family: IPv4 Unicast
+	
+	BGP table version is 10, local router ID is 201.0.0.1
+	Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 	              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+	              x best-external, a additional-path, c RIB-compressed, 
+	Origin codes: i - IGP, e - EGP, ? - incomplete
+	RPKI validation codes: V valid, I invalid, N Not found
+	
+	     Network          Next Hop            Metric LocPrf Weight Path
+	 *>  1.1.1.0/24       2.2.2.2                  0             0 100 ?
+	 *   2.2.2.0/24       2.2.2.2                  0             0 100 ?
+	 *>                   0.0.0.0                  0         32768 ?
+	 *>  100.0.0.0/24     2.2.2.2                                0 100 i
+	 *>  101.0.0.0/24     2.2.2.2                                0 100 i
+	 *>  110.0.0.0/24     2.2.2.2                  0             0 100 ?
+	 *>  111.0.0.0/24     2.2.2.2                  0             0 100 ?
+	 *>  200.0.0.0        0.0.0.0                  0         32768 ?
+	 *>  201.0.0.0        0.0.0.0                  0         32768 ?
+	
+	For address family: IPv6 Unicast
+	
+	BGP table version is 10, local router ID is 201.0.0.1
+	Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 	              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+	              x best-external, a additional-path, c RIB-compressed, 
+	Origin codes: i - IGP, e - EGP, ? - incomplete
+	RPKI validation codes: V valid, I invalid, N Not found
+	
+	     Network          Next Hop            Metric LocPrf Weight Path
+	 *>  1::/64           2::2                     0             0 100 ?
+	 *   2::/64           2::2                     0             0 100 ?
+	 *>                   ::                       0         32768 ?
+	 *>  100::/64         2::2                                   0 100 i
+	 *>  101::/64         2::2                                   0 100 i
+	 *>  110::/64         2::2                     0             0 100 ?
+	 *>  111::/64         2::2                     0             0 100 ?
+	 *>  200::/64         ::                       0         32768 ?
+	 *>  201::/64         ::                       0         32768 ?
+	
+	For address family: IPv4 Multicast
+	
+	
+	For address family: MVPNv4 Unicast
+	
+	RTC#
+	
+	! veja que o RTC agora tem todos os prefixos do RTA e RTB.
+	
+	! agora já é possivel ter acesso do RTC até o RTA.
+
+12. Execute um traceroute para o IPv4 100.0.0.1
+
+>
+	RTC#traceroute 100.0.0.1 numeric 
+	Type escape sequence to abort.
+	Tracing the route to 100.0.0.1
+	VRF info: (vrf in name/id, vrf out name/id)
+	  1 2.2.2.2 1 msec 0 msec 1 msec
+	  2 1.1.1.1 [AS 100] 0 msec *  1 msec
+	RTC#
+
+13. Execute um traceroute para o IPv6 100::1
+
+>
+	RTC#traceroute 100::1         
+	Type escape sequence to abort.
+	Tracing the route to 100::1
+	
+	  1 2::2 1 msec 1 msec 0 msec
+	  2 1::1 [AS 100] 1 msec 1 msec 1 msec
+	RTC#
+
+14. Execute um ping para o IPv4 100.0.0.1
+
+>
+	RTC#ping 101.0.0.1
+	Type escape sequence to abort.
+	Sending 5, 100-byte ICMP Echos to 101.0.0.1, timeout is 2 seconds:
+	!!!!!
+	Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/1 ms
+	RTC#
+
+15. Execute um ping para o IPv6 100::1
+
+>
+	RTC#ping 101::1
+	Type escape sequence to abort.
+	Sending 5, 100-byte ICMP Echos to 101::1, timeout is 2 seconds:
+	!!!!!
+	Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/1 ms
+	RTC#
