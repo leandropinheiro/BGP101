@@ -364,3 +364,131 @@ COMANDO | DESCRIÇÃO
 	! o "| section bgp" filtra a saída do comando para mostrar apenas a
 	! parte referente a configuração BGP.
 
+### Tarefa 05
+1. Acessar a console do ***RTB***.
+
+2. Ativar os peers IPv6 no roteador ***RTB***, execute o script abaixo:
+
+>
+	configure terminal
+	
+	router bgp 100
+	address-family ipv6
+	neighbor 1::1 activate
+	neighbor 2::1 activate
+	end
+	write
+
+3. Verificar a configuração BGP no ***RTB***, execute o comando ***show running-config | section bgp***, compare com a saída de exemplo abaixo:
+
+>
+	RTB#show running-config | section bgp
+	router bgp 100
+	 bgp log-neighbor-changes
+	 neighbor 1::1 remote-as 100
+	 neighbor 2::1 remote-as 200
+	 neighbor 1.1.1.1 remote-as 100
+	 neighbor 2.2.2.1 remote-as 200
+	 !
+	 address-family ipv4
+	  no neighbor 1::1 activate
+	  no neighbor 2::1 activate
+	  neighbor 1.1.1.1 activate
+	  neighbor 2.2.2.1 activate
+	 exit-address-family
+	 !
+	 address-family ipv6
+	  neighbor 1::1 activate
+	  neighbor 2::1 activate
+	 exit-address-family
+	RTB#
+	
+	! veja que temos uma coisa estranha na cofiguração.
+	
+	! agora temos os peers separados em "address-family".
+	! os peers IPv6 estão listados no "address-family ipv4", isso não
+	! deveria estar acontecendo.
+	
+	! o comportamento padrão do BGP é inserir todos os peers no IPv4.
+4. Verificar neigbors IPv4/IPv6 no ***RTB***, execute o comando ***show bgp all summary***, compare com a saída de exemplo abaixo:
+
+>
+	RTB#show bgp all summary
+	For address family: IPv4 Unicast
+	BGP router identifier 2.2.2.2, local AS number 100
+	BGP table version is 4, main routing table version 4
+	3 network entries using 420 bytes of memory
+	3 path entries using 240 bytes of memory
+	1/1 BGP path/bestpath attribute entries using 144 bytes of memory
+	1 BGP AS-PATH entries using 24 bytes of memory
+	0 BGP route-map cache entries using 0 bytes of memory
+	0 BGP filter-list cache entries using 0 bytes of memory
+	BGP using 828 total bytes of memory
+	BGP activity 6/0 prefixes, 6/0 paths, scan interval 60 secs
+	
+	Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
+	1.1.1.1         4          100      10      11        4    0    0 00:06:13        0
+	2.2.2.1         4          200      11      10        4    0    0 00:06:14        3
+	
+	For address family: IPv6 Unicast
+	BGP router identifier 2.2.2.2, local AS number 100
+	BGP table version is 1, main routing table version 1
+	3 network entries using 492 bytes of memory
+	3 path entries using 312 bytes of memory
+	1/0 BGP path/bestpath attribute entries using 144 bytes of memory
+	1 BGP AS-PATH entries using 24 bytes of memory
+	0 BGP route-map cache entries using 0 bytes of memory
+	0 BGP filter-list cache entries using 0 bytes of memory
+	BGP using 972 total bytes of memory
+	BGP activity 6/0 prefixes, 6/0 paths, scan interval 60 secs
+	
+	Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
+	1::1            4          100       0       0        1    0    0 never    Idle
+	2::1            4          200       5       2        1    0    0 00:00:37        3
+	RTB#
+	
+	! apesar da configuração do passo #3 estar com algumas coisas que podem
+	! ser melhoradas.
+
+	! podemos ver que agora temos peering do RTB com os roteadores RTA e RTC,
+	! tanto no IPv4 quando no IPv6.
+
+	! apesar do peering IPv6 com o RTA ainda estar em "never"
+	! mas isso se deve a configuração incompleta no RTA.
+
+5. Verificar os prefixos IPv4 no ***RTB***, execute o comando ***sh bgp ipv4 unicast***, compare com a saída de exemplo abaixo:
+
+>
+	RTB#sh bgp ipv4 unicast 
+	BGP table version is 4, local router ID is 2.2.2.2
+	Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+	              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+	              x best-external, a additional-path, c RIB-compressed, 
+	Origin codes: i - IGP, e - EGP, ? - incomplete
+	RPKI validation codes: V valid, I invalid, N Not found
+	
+	     Network          Next Hop            Metric LocPrf Weight Path
+	 r>  2.2.2.0/24       2.2.2.1                  0             0 200 ?
+	 *>  200.0.0.0        2.2.2.1                  0             0 200 ?
+	 *>  201.0.0.0        2.2.2.1                  0             0 200 ?
+	RTB#
+
+6. Verificar os prefixos IPv6 no ***RTB***, execute o comando ***sh bgp ipv6 unicast***, compare com a saída de exemplo abaixo:
+
+>
+	RTB#sh bgp ipv6 unicast 
+	BGP table version is 4, local router ID is 2.2.2.2
+	Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+	              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+	              x best-external, a additional-path, c RIB-compressed, 
+	Origin codes: i - IGP, e - EGP, ? - incomplete
+	RPKI validation codes: V valid, I invalid, N Not found
+	
+	     Network          Next Hop            Metric LocPrf Weight Path
+	 r>  2::/64           2::1                     0             0 200 ?
+	 *>  200::/64         2::1                     0             0 200 ?
+	 *>  201::/64         2::1                     0             0 200 ?
+	RTB#
+	
+	! veja que agora o RTB também conta com prefixos IPv6 no BGP.
+
