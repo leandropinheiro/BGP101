@@ -1,5 +1,5 @@
 !
-! Last configuration change at 15:51:00 EET Thu Jul 19 2018 by localadmin
+! Last configuration change at 17:04:01 EET Thu Jul 19 2018 by localadmin
 !
 version 15.4
 service timestamps debug datetime msec
@@ -90,11 +90,13 @@ interface Loopback1
 interface Ethernet0/0
  description TO-RTB-e0/1
  ip address 2.2.2.1 255.255.255.0
+ no ip route-cache
  ipv6 address 2::1/64
 !
 interface Ethernet0/1
  description TO-RTB-e0/2
  ip address 3.3.3.1 255.255.255.0
+ no ip route-cache
  ipv6 address 3::1/64
 !
 interface Ethernet0/2
@@ -109,16 +111,24 @@ router bgp 200
  bgp log-neighbor-changes
  no bgp default ipv4-unicast
  neighbor 2::2 remote-as 100
+ neighbor 110::1 remote-as 100
+ neighbor 110::1 ebgp-multihop 255
+ neighbor 110::1 update-source Loopback0
  neighbor 2.2.2.2 remote-as 100
+ neighbor 110.0.0.1 remote-as 100
+ neighbor 110.0.0.1 ebgp-multihop 255
+ neighbor 110.0.0.1 update-source Loopback0
  !
  address-family ipv4
   redistribute connected
   neighbor 2.2.2.2 activate
+  neighbor 110.0.0.1 activate
  exit-address-family
  !
  address-family ipv6
   redistribute connected
   neighbor 2::2 activate
+  neighbor 110::1 activate
  exit-address-family
 !
 ip forward-protocol nd
@@ -126,7 +136,11 @@ ip forward-protocol nd
 !
 no ip http server
 no ip http secure-server
+ip route 110.0.0.1 255.255.255.255 2.2.2.2 name RTB-Lo0-VIA-e0/1
+ip route 110.0.0.1 255.255.255.255 3.3.3.2 name RTB-Lo0-VIA-e0/2
 !
+ipv6 route 110::1/128 2::2 name RTB-Lo0-VIA-e0/1
+ipv6 route 110::1/128 3::2 name RTB-Lo0-VIA-e0/2
 !
 !
 !
