@@ -51,7 +51,7 @@ COMANDO | DESCRIÇÃO
 *configure terminal*|Entra no modo de configuração global
 *end*|Sai do mode de configuração global
 *write*|Salva as alterações nas configura
-*show runnning-config*|Exibe a configuração currente
+*show runnning-config*|Exibe a configuração corrente
 *show startup-config*|Exibe a configuração salva
 *show ip protocols*|Exibe as configurações IPv4 globais
 *show ipv6 protocols*|Exibe as configurações IPv6 globais
@@ -73,8 +73,8 @@ COMANDO | DESCRIÇÃO
 *neighbor 1.1.1.1 remote-as 100*|Cria peering BGP no ASN 100 com o roteador 1.1.1.1
 *address-family [ipv4][ipv6]*|Acessa a configuração BGP de uma versão especifica do protocolo IP
 *neighbor 1.1.1.1 active*|Ativa uma conexão de peering BGP com o roteador 1.1.1.1
-*neighbor 1.1.1.1 next-hop-self*|Subititui o endereço do *next hop* dos prefixos enviados ao peer 1.1.1.1, com o endereço ip local
-*clear ip bgp \[1.1.1.1\|\*\] [soft]*|Reseta o peering BGP com o host, ou com todos \[\"\*\"\], se usar a key \[soft\] aplica as alterações de onfiguração sem derrubar a sessão TCP.
+*neighbor 1.1.1.1 next-hop-self*|Substitui o endereço do *next hop* dos prefixos enviados ao peer 1.1.1.1, com o endereço ip local
+*clear ip bgp \[1.1.1.1\|\*\] [soft]*|Reseta o peering BGP com o host, ou com todos \[\"\*\"\], se usar a key \[soft\] aplica as alterações de configuração sem derrubar a sessão TCP.
 *debug*|Ativa informações de debug
 *undebug*|Desativa informações de debug
 
@@ -148,8 +148,8 @@ COMANDO | DESCRIÇÃO
 	L        101.0.0.1/32 is directly connected, Loopback1
 	RTA#
 	
-	! veja que apesar de termos os refixos 2.2.2.0/24, 200.0.0.0/24 e 201.0.0.0/24 na
-	! topologia do BGP, estes prefixos não estão presetes na tabela de rotas (RIB).
+	! veja que apesar de termos os prefixos 2.2.2.0/24, 200.0.0.0/24 e 201.0.0.0/24 na
+	! topologia do BGP, estes prefixos não estão presentes na tabela de rotas (RIB).
 	
 	!      Network          Next Hop            Metric LocPrf Weight Path
 	!	 * i 2.2.2.0/24       2.2.2.1                  0    100      0 200 ?
@@ -333,7 +333,7 @@ COMANDO | DESCRIÇÃO
 	cleair ip bgp * soft
 	
 	! esse comando vai fazer um Soft Reset na Sessão BGP, sem derrubar a mesma
-	! apenas vai alterar os parametros da mesma e aplicar as alterações.
+	! apenas vai alterar os parâmetros da mesma e aplicar as alterações.
 
 	! CUIDADO!!! O * vai aplicar o reset em todas as Sessões BGP locais do
 	! roteador, para aplicar a um neighbor especifico, usar o IP do mesmo.
@@ -853,9 +853,9 @@ COMANDO | DESCRIÇÃO
 	! a segunda é que os prefixos originados no RTB tem o Path = ?, isso
 	! significa que a origem está incompleta, acontece quando o BGP não tem
 	! certeza da origem do prefixo, geralmente está relacionado com rotas 
-	! redistribuidas.
+	! redistribuídas.
 	
-	! a terceira é que os prefixos orifinados no RTA tem o Path = i, quando a
+	! a terceira é que os prefixos originados no RTA tem o Path = i, quando a
 	! origem é via um IGP, ou seja usando o comando network para sincronizar com
 	! prefixos existentes na RIP, o BGP valida o prefixo e adiciona a origem ao
 	! BGP.
@@ -964,7 +964,7 @@ COMANDO | DESCRIÇÃO
 	
 	! veja que o RTC agora tem todos os prefixos do RTA e RTB.
 	
-	! agora já é possivel ter acesso do RTC até o RTA.
+	! agora já é possível ter acesso do RTC até o RTA.
 
 12. Execute um traceroute para o IPv4 100.0.0.1
 

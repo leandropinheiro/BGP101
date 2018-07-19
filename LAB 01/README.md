@@ -57,7 +57,7 @@ COMANDO | DESCRIÇÃO
 *configure terminal*|Entra no modo de configuração global
 *end*|Sai do mode de configuração global
 *write*|Salva as alterações nas configura
-*show runnning-config*|Exibe a configuração currente
+*show runnning-config*|Exibe a configuração corrente
 *show startup-config*|Exibe a configuração salva
 *show ip protocols*|Exibe as configurações IPv4 globais
 *show ipv6 protocols*|Exibe as configurações IPv6 globais
@@ -79,8 +79,8 @@ COMANDO | DESCRIÇÃO
 *neighbor 1.1.1.1 remote-as 100*|Cria peering BGP no ASN 100 com o roteador 1.1.1.1
 *address-family [ipv4][ipv6]*|Acessa a configuração BGP de uma versão especifica do protocolo IP
 *neighbor 1.1.1.1 active*|Ativa uma conexão de peering BGP com o roteador 1.1.1.1
-*neighbor 1.1.1.1 next-hop-self*|Subititui o endereço do *next hop* dos prefixos enviados ao peer 1.1.1.1, com o endereço ip local
-*clear ip bgp \[1.1.1.1\|\*\] [soft]*|Reseta o peering BGP com o host, ou com todos \[\"\*\"\], se usar a key \[soft\] aplica as alterações de onfiguração sem derrubar a sessão TCP.
+*neighbor 1.1.1.1 next-hop-self*|Substitui o endereço do *next hop* dos prefixos enviados ao peer 1.1.1.1, com o endereço ip local
+*clear ip bgp \[1.1.1.1\|\*\] [soft]*|Reseta o peering BGP com o host, ou com todos \[\"\*\"\], se usar a key \[soft\] aplica as alterações de configuração sem derrubar a sessão TCP.
 *debug*|Ativa informações de debug
 *undebug*|Desativa informações de debug
 
@@ -98,12 +98,12 @@ COMANDO | DESCRIÇÃO
 
 5. Deve abrir uma sessão de terminal com o *prompt* de *login* do roteador ***RTA***.
 
-6. Efetue o login com as credênciais fornecidas acima.
+6. Efetue o login com as credenciais fornecidas acima.
 
 7. Execute o script abaixo:
 
 >
-	! para entrar no modo de confiugração, a partir do prompt #
+	! para entrar no modo de configuração, a partir do prompt #
 	!
 	configure terminal
 	! muda para o prompt (config)#
@@ -155,19 +155,19 @@ COMANDO | DESCRIÇÃO
 	! isso significa que não há prefixo na Topologia do BGP
 	! os motivos são dois: 1) não há conexão Up com nenhum peer
 	! que possa injetar prefixos, 2) o roteador local não está
-	! injetando nenhum prexio no BGP.
+	! injetando nenhum prefixo no BGP.
 
 ### Tarefa 02
 1. ***Clicar no icone do RTB***.
 
 2. Deve abrir uma sessão de terminal com o *prompt* de *login* do roteador ***RTB***.
 
-3. Efetue o login com as credênciais fornecidas acima.
+3. Efetue o login com as credenciais fornecidas acima.
 
 4. Execute o script abaixo:
 
 >
-	! para entrar no modo de confiugração, a partir do prompt #
+	! para entrar no modo de configuração, a partir do prompt #
 	!
 	configure terminal
 	! muda para o prompt (config)#
@@ -255,7 +255,7 @@ COMANDO | DESCRIÇÃO
 	 *>  201.0.0.0        2.2.2.1                  0             0 200 ?
 	RTB#
 	
-	! veja que há prefixos na Tolologia BGP.
+	! veja que há prefixos na Topologia BGP.
 	! isso significa que temos ao menos um peering ativo, ou que o roteador
 	! local está injetando prefixos.
 	
@@ -264,7 +264,7 @@ COMANDO | DESCRIÇÃO
 	! foi originado no RTC.
 	
 	! observe o Path, ele indica a quantidade de saltos de ASN do prefixo.
-	! a leitura do Path deve ser realziada de trás para frente, o último
+	! a leitura do Path deve ser realizada de trás para frente, o último
 	! ASN é o primeiro ASN do Path, geralmente significa que o prefixo se
 	! origina nesse ASN.
 	
@@ -292,7 +292,7 @@ COMANDO | DESCRIÇÃO
 	RTA#
 	
 	! veja que agora temos prefixos.
-	! isso siginifica que temos ao menos um peering Open.
+	! isso significa que temos ao menos um peering Open.
 	!
 	! veja que logo no inicio das linhas após o "*", temos um "i".
 	! isso significa que o prefixo foi aprendido via um peer iBGP.
@@ -424,7 +424,7 @@ COMANDO | DESCRIÇÃO
 	 exit-address-family
 	RTB#
 	
-	! veja que temos uma coisa estranha na cofiguração.
+	! veja que temos uma coisa estranha na configuração.
 	
 	! agora temos os peers separados em "address-family".
 	! os peers IPv6 estão listados no "address-family ipv4", isso não
