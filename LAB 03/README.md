@@ -19,14 +19,14 @@ O aluno deve seguir os passos para poder configurar os roteadores para injetar a
 
 ![topologia](https://raw.githubusercontent.com/leandropinheiro/BGP101/master/img/LAB03-topologia.png)
 
-HOSTNAME | TIPO | ASN | E0/0 | E0/1 | Lo0 | Lo1 
-:-------:|:----:|:---:|:----:|:----:|:---:|:---:
-RTA|ROUTER|100|1.1.1.1/24|-|100.0.0.1/24|101.0.0.1/24
-RTA|ROUTER|100|1::1/64|-|100::1/64|101::1/64
-RTB|ROUTER|100|1.1.1.2/24|2.2.2.2/24|110.0.0.1/24|111.0.0.1/24
-RTB|ROUTER|100|1::2/64|2::2/64|110::1/64|111::1/64
-RTC|ROUTER|200|2.2.2.1/24|-|200.0.0.1/24|201.0.0.1/24
-RTC|ROUTER|200|2::1/64|-|200::1/64|201::1/64
+HOSTNAME | TIPO | ASN | E0/0 | E0/1 | E0/2 | Lo0 | Lo1 
+:-------:|:----:|:---:|:----:|:----:|:----:|:---:|:---:
+RTA|ROUTER|100|1.1.1.1/24|-|-|100.0.0.1/24|101.0.0.1/24
+RTA|ROUTER|100|1::1/64|-|-|100::1/64|101::1/64
+RTB|ROUTER|100|1.1.1.2/24|2.2.2.2/24|3.3.3.2/24|110.0.0.1/24|111.0.0.1/24
+RTB|ROUTER|100|1::2/64|2::2/64|3::2/64|110::1/64|111::1/64
+RTC|ROUTER|200|2.2.2.1/24|3.3.3.1/24|-|200.0.0.1/24|201.0.0.1/24
+RTC|ROUTER|200|2::1/64|3::1/64|-|200::1/64|201::1/64
 
 O roteador **RTC** está pré-configurado e o aluno não precisa realizar nenhuma intervenção de configuração neste equipamento, entretanto é permitido usar comandos *show*, *ping* e *tracerouter*.
 
