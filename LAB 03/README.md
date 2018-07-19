@@ -80,7 +80,7 @@ COMANDO | DESCRIÇÃO
 ### Tarefa 01
 1. Acessar a console do ***RTC***.
 
-* Execute um traceroute para o IPv4 100.0.0.1
+2. Execute um traceroute para o IPv4 100.0.0.1
 
 >
 	RTC#traceroute 100.0.0.1 numeric 
@@ -93,4 +93,99 @@ COMANDO | DESCRIÇÃO
 	
 	! observe cada salto utiliza apenas um link, a interface 3.3.3.x não está
 	! sendo utilizada.
+
+3. Acessar a console do ***RTB***.
+
+4. Verificar a configuração BGP no ***RTB***, execute o comando ***show running-config | section bgp***, compare com a saída de exemplo abaixo:
+
+>
+	RTB#show run | section bgp
+	router bgp 100
+	 bgp log-neighbor-changes
+	 no bgp default ipv4-unicast
+	 neighbor 1::1 remote-as 100
+	 neighbor 2::1 remote-as 200
+	 neighbor 1.1.1.1 remote-as 100
+	 neighbor 2.2.2.1 remote-as 200
+	 !
+	 address-family ipv4
+	  redistribute connected
+	  neighbor 1.1.1.1 activate
+	  neighbor 1.1.1.1 next-hop-self
+	  neighbor 2.2.2.1 activate
+	  neighbor 2.2.2.1 next-hop-self
+	 exit-address-family
+	 !
+	 address-family ipv6
+	  redistribute connected
+	  neighbor 1::1 activate
+	  neighbor 1::1 next-hop-self
+	  neighbor 2::1 activate
+	  neighbor 2::1 next-hop-self
+	 exit-address-family
+	RTB#
+	
+	! veja que o peering com o RTC está sendo realizado diretamente pela
+	! interface e0/1 (via 2.2.2.1), com isso todas os prefixos destinados ao 
+	! RTC são direcionados para esta interface, pois a mesma é utilizada como
+	! Next Hop.
+	
+	! além de não utiliza o outro link entre o RTB e RTC (3.3.3.x), para dados
+	! no caso de queda do link 2.2.2.x o peering BGP também para de funcionar.
+
+5. Execute o script abaixo:
+
+>
+	configure terminal
+	
+	! primeiro vamos desabilitar o ip route-cache para evitar que o roteador
+	! amarre uma conexão a uma interface especifica.
+	
+	interface ethernet 0/1
+	no ip route-cache
+	interface ehternet 0/2
+	no ip route-cache
+	
+	! depois vamos criar rotas estáticas para balancear o acesso a interface
+	! Loopback 0 do RTC por ambas as interfaces e0/1 (2.2.2.2) e 0/2 (3.3.3.2)
+	
+	ip route 200.0.0.1 255.255.255.255 2.2.2.1 name RTC-Lo0-VIA-e0/0
+	ip route 200.0.0.1 255.255.255.255 3.3.3.1 name RTC-Lo0-VIA-e0/1
+	
+	! mesma coisa para as redes IPv6.
+	
+	ipv6 route 200::1/128 2::1 name RTC-Lo0-VIA-e0/0
+	ipv6 route 200::1/128 3::1 name RTC-Lo0-VIA-e0/1
+	
+	router bgp 100
+	
+	! vamos por em shutdown os neighbors para o RTC utilizando a interface e0/0
+	
+	neighbor 2.2.2.1 shutdown
+	neighbor 2::1 shutdown
+	
+	! vamos adicionar os novos neighbors com a interface Loopback 0 do RTC
+	
+	neighbor 200.0.0.1 remote-as 200
+	neighbor 200::1 remote-as 200
+	
+	! Vamos configurá-los para permitir multihop, para quando as interfaces
+	! não estão diretamente conectadas, e também configurar o source como
+	! sendo a interface local Loopback 0 do RTB, para que a origem dos pacotes
+	! BGP utilizem o IP de Origem correto.
+	
+	neighbor 200.0.0.1 ebgp-multihop
+	neighbor 200.0.0.1 update-source loopback 0
+	neighbor 200::1 ebgp-multihop
+	neighbor 200::1 update-source loopback 0
+	
+	address-family ipv4
+	neighbor 200.0.0.1 activate
+	
+	address-family ipv6
+	neighbor 200::1 activate
+	
+	end
+	write
+	
 
