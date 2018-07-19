@@ -78,5 +78,19 @@ COMANDO | DESCRIÇÃO
 
 ## ATIVIDADES DO LAB 02
 ### Tarefa 01
-1. Acessar a console do ***RTA***.
+1. Acessar a console do ***RTC***.
+
+* Execute um traceroute para o IPv4 100.0.0.1
+
+>
+	RTC#traceroute 100.0.0.1 numeric 
+	Type escape sequence to abort.
+	Tracing the route to 100.0.0.1
+	VRF info: (vrf in name/id, vrf out name/id)
+	  1 2.2.2.2 0 msec 0 msec 0 msec
+	  2 1.1.1.1 [AS 100] 0 msec *  0 msec
+	RTC#
+	
+	! observe cada salto utiliza apenas um link, a interface 3.3.3.x não está
+	! sendo utilizada.
 
