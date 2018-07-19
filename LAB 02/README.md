@@ -13,7 +13,7 @@
 	* [Tarefa 03](https://github.com/leandropinheiro/BGP101/tree/master/LAB%2002#tarefa-03)
 
 ### Objetivo
-Neste lab o aluno será apresentado aos metodos para injetar rotas no ***BGP***, assim como aos comandos *network*, *aggregate* e *redistribution*.
+Neste lab o aluno será apresentado aos métodos para injetar rotas no ***BGP***, assim como aos comandos *network*, *aggregate* e *redistribution*.
 
 O aluno deve seguir os passos para poder configurar os roteadores para injetar as rotas na topologia BGP.
 

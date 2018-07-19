@@ -11,7 +11,7 @@
 	* [Tarefa 01](https://github.com/leandropinheiro/BGP101/tree/master/LAB%2003#tarefa-01)
 
 ### Objetivo
-Neste lab o aluno será apresentado aos metodos para injetar rotas no ***BGP***, assim como aos comandos *network*, *aggregate* e *redistribution*.
+Neste lab o aluno será apresentado ao método para configurar um peering BGP utilizando interfaces Loopback, e aproveitando para mostrar como essa opção pode ser utilizada para utilizar multilinks entre os peers, assim como prover redundância de link para a sessão BGP.
 
 O aluno deve seguir os passos para poder configurar os roteadores para injetar as rotas na topologia BGP.
 
@@ -30,7 +30,9 @@ RTC|ROUTER|200|2::1/64|3::1/64|-|200::1/64|201::1/64
 
 O roteador **RTC** está pré-configurado e o aluno não precisa realizar nenhuma intervenção de configuração neste equipamento, entretanto é permitido usar comandos *show*, *ping* e *tracerouter*.
 
-Os roteadores **RTA** e **RTB** estão configurados apenas com as configurações básicas, como *hostname*, *description* e endereço *IPv4* e *IPv6* das *interfaces*, assim como a configuração BGP do LAB 01. Nestes equipamentos o aluno pode fazer qualquer configuração, e executar quaisquer comandos.
+Os roteador **RTA** não necessita de nenhuma configuração do aluno para este LAB. Neste equipamento o aluno pode fazer qualquer configuração, e executar quaisquer comandos.
+
+O roteador **RTB** está configurado apenas com as configurações básicas, como *hostname*, *description* e endereço *IPv4* e *IPv6* das *interfaces*, assim como a configuração BGP do LAB 02. Neste equipamento o aluno pode fazer qualquer configuração, e executar quaisquer comandos.
 
 #### Credenciais de acesso
 
@@ -69,6 +71,8 @@ COMANDO | DESCRIÇÃO
 *bgp default ipv4-unicast*|Inclui os neighbors BGP automaticamente no *address-family ipv4* e ativa os mesmos, mesmo que o neighbor seja IPv6
 *syncronization*|Sincroniza o FIB do BGP com a RIB criada por um IGP
 *neighbor 1.1.1.1 remote-as 100*|Cria peering BGP no ASN 100 com o roteador 1.1.1.1
+*neighbor 1.1.1.1 ebgp-multihop*|Permit peering BGP sem utilizar interface diretamente conectada com o roteador 1.1.1.1
+*neighbor 1.1.1.1 update-soute [interface]*|Especifica que o roteador local deve utilizar a [interface] como origem dos pacotes para o roteador remoto 1.1.1.1
 *address-family [ipv4][ipv6]*|Acessa a configuração BGP de uma versão especifica do protocolo IP
 *neighbor 1.1.1.1 active*|Ativa uma conexão de peering BGP com o roteador 1.1.1.1
 *neighbor 1.1.1.1 next-hop-self*|Subititui o endereço do *next hop* dos prefixos enviados ao peer 1.1.1.1, com o endereço ip local
@@ -189,3 +193,34 @@ COMANDO | DESCRIÇÃO
 	write
 	
 
+6. Acessar a console do ***RTC***.
+
+7. Execute um traceroute para o IPv4 100.0.0.1
+
+>
+	RTC#traceroute 100.0.0.1 numeric 
+	Type escape sequence to abort.
+	Tracing the route to 100.0.0.1
+	VRF info: (vrf in name/id, vrf out name/id)
+	  1 2.2.2.2 0 msec
+	    3.3.3.2 5 msec
+	    2.2.2.2 4 msec
+	  2 1.1.1.1 [AS 100] 5 msec *  1 msec
+	RTC#
+	
+	! observe que agora o primeiro salto (RTC -> RTB) está utilizando os dois
+	! liks e0/1 (2.2.2.2) e e0/1 (3.3.3.2).
+
+8. Execute um traceroute para o IPv6 100::1
+
+>
+	RTC#traceroute 100::1 
+	Type escape sequence to abort.
+	Tracing the route to 100::1
+	
+	  1 3::2 0 msec
+	    2::2 1 msec 1 msec
+	  2 1::1 [AS 100] 0 msec 0 msec 1 msec
+	RTC#
+	
+	! observe que temos o mesmo comportamento para o IPv6.
