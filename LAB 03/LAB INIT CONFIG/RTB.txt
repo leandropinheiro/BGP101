@@ -1,27 +1,4 @@
 !
-! Last configuration change at 15:48:40 EET Thu Jul 19 2018 by localadmin
-!
-version 15.4
-service timestamps debug datetime msec
-service timestamps log datetime msec
-no service password-encryption
-!
-hostname RTB
-!
-boot-start-marker
-boot-end-marker
-!
-aqm-register-fnf
-!
-!
-aaa new-model
-!
-!
-aaa authentication login default local
-aaa authentication enable default enable
-aaa authorization console
-aaa authorization exec default local 
-!
 !
 !
 !
@@ -98,6 +75,7 @@ interface Ethernet0/1
 interface Ethernet0/2
  description TO-RTC-e0/1
  ip address 3.3.3.2 255.255.255.0
+ shutdown
  ipv6 address 3::2/64
 !
 interface Ethernet0/3
@@ -113,13 +91,19 @@ router bgp 100
  neighbor 2.2.2.1 remote-as 200
  !
  address-family ipv4
+  redistribute connected
   neighbor 1.1.1.1 activate
+  neighbor 1.1.1.1 next-hop-self
   neighbor 2.2.2.1 activate
+  neighbor 2.2.2.1 next-hop-self
  exit-address-family
  !
  address-family ipv6
+  redistribute connected
   neighbor 1::1 activate
+  neighbor 1::1 next-hop-self
   neighbor 2::1 activate
+  neighbor 2::1 next-hop-self
  exit-address-family
 !
 ip forward-protocol nd

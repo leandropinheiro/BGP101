@@ -1,4 +1,6 @@
 !
+! Last configuration change at 16:02:23 EET Thu Jul 19 2018 by localadmin
+!
 version 15.4
 service timestamps debug datetime msec
 service timestamps log datetime msec
@@ -107,10 +109,16 @@ router bgp 100
  neighbor 1.1.1.2 remote-as 100
  !
  address-family ipv4
+  network 1.1.1.0 mask 255.255.255.0
+  network 100.0.0.0 mask 255.255.255.0
+  network 101.0.0.0 mask 255.255.255.0
   neighbor 1.1.1.2 activate
  exit-address-family
  !
  address-family ipv6
+  network 1::/64
+  network 100::/64
+  network 101::/64
   neighbor 1::2 activate
  exit-address-family
 !
