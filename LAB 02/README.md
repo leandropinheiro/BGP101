@@ -330,7 +330,7 @@ COMANDO | DESCRIÇÃO
 12. Execute o comando abaixo:
 
 >
-	cleair ip bgp * soft
+	clear ip bgp * soft
 	
 	! esse comando vai fazer um Soft Reset na Sessão BGP, sem derrubar a mesma
 	! apenas vai alterar os parâmetros da mesma e aplicar as alterações.
@@ -378,7 +378,7 @@ COMANDO | DESCRIÇÃO
 	! veja que agora as rotas estão na RIB, e o next hop é o endereço do RTB
 	! na rede em comum com o RTA (e0/0 - 1.1.1.0/24)
 
-14. Verificar prefixos IPv6 tabela de rotas (RIB) do ***RTA***, execute o comando ***show ip route***, compare com a saída de exemplo abaixo:
+14. Verificar prefixos IPv6 tabela de rotas (RIB) do ***RTA***, execute o comando ***show ipv6 route***, compare com a saída de exemplo abaixo:
 
 >
 	RTA#show ipv6 route 
