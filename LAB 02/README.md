@@ -80,9 +80,11 @@ COMANDO | DESCRIÇÃO
 
 ## ATIVIDADES DO LAB 02
 ### Tarefa 01
-1. Acessar a console do ***RTA***.
+1. ***ATENÇÃO!!!*** Fechar o LAB 01 no EVE (STOP ALL NODES => CLOSE LAB), e abrir o LAB 02 (START ALL NODES)
 
-2. Verificar prefixos IPv4/IPv6 no ***RTA***, execute o comando ***show bgp all***, compare com a saída de exemplo abaixo:
+2. Acessar a console do ***RTA***.
+
+3. Verificar prefixos IPv4/IPv6 no ***RTA***, execute o comando ***show bgp all***, compare com a saída de exemplo abaixo:
 
 >
 	RTA#sh bgp all       
@@ -121,7 +123,7 @@ COMANDO | DESCRIÇÃO
 	
 	RTA#
 
-3. Verificar prefixos IPv4 tabela de rotas (RIB) do ***RTA***, execute o comando ***show ip route***, compare com a saída de exemplo abaixo:
+4. Verificar prefixos IPv4 tabela de rotas (RIB) do ***RTA***, execute o comando ***show ip route***, compare com a saída de exemplo abaixo:
 
 >
 	RTA#sh ip route   
@@ -158,9 +160,9 @@ COMANDO | DESCRIÇÃO
 	! este destino, como o BGP não consegue validar o Next Hop, ele não envia a
 	! rota para ser inserida na RIB.
 
-4. Acessar a console do ***RTB***.
+5. Acessar a console do ***RTB***.
 
-5. Verificar prefixos IPv4/IPv6 no ***RTB***, execute o comando ***show bgp all***, compare com a saída de exemplo abaixo:
+6. Verificar prefixos IPv4/IPv6 no ***RTB***, execute o comando ***show bgp all***, compare com a saída de exemplo abaixo:
 
 >
 	RTB#sh bgp all
@@ -199,7 +201,7 @@ COMANDO | DESCRIÇÃO
 	
 	RTB#
 
-6. Verificar prefixos IPv4 tabela de rotas (RIB) do ***RTB***, execute o comando ***show ip route***, compare com a saída de exemplo abaixo:
+7. Verificar prefixos IPv4 tabela de rotas (RIB) do ***RTB***, execute o comando ***show ip route***, compare com a saída de exemplo abaixo:
 
 >
 	RTB#sh ip route
@@ -235,7 +237,7 @@ COMANDO | DESCRIÇÃO
 	! o BGP consegue validar o Next Hop, e envia os prefixos para serem inseridos
 	! na RIB.
 
-7. Verificar a configuração BGP no ***RTB***, execute o comando ***show running-config | section bgp***, compare com a saída de exemplo abaixo:
+8. Verificar a configuração BGP no ***RTB***, execute o comando ***show running-config | section bgp***, compare com a saída de exemplo abaixo:
 
 >
 	RTB#show running-config | section bgp
@@ -262,7 +264,7 @@ COMANDO | DESCRIÇÃO
 	! do RTC para o RTA, vamos usar o next-hop-self para alterar a informação
 	! dos prefixos quando o RTB enviá-los para o RTA.
 
-8. Execute o script abaixo:
+9. Execute o script abaixo:
 
 >
 	configure terminal
@@ -279,9 +281,9 @@ COMANDO | DESCRIÇÃO
 	
 	! veja que a alteração é realizada por neighbor.
 
-9. Acessar a console do ***RTA***.
+10. Acessar a console do ***RTA***.
 
-10. Verificar prefixos IPv4/IPv6 no ***RTA***, execute o comando ***show bgp all***, compare com a saída de exemplo abaixo:
+11. Verificar prefixos IPv4/IPv6 no ***RTA***, execute o comando ***show bgp all***, compare com a saída de exemplo abaixo:
 
 >
 	RTA#show bgp all 
@@ -325,9 +327,9 @@ COMANDO | DESCRIÇÃO
 	! quando uma conexão BGP está ativa, dependendo da alteração é necessário
 	! fazer um reset na sessão BGP entre os roteadores.
 
-11. Acessar a console do ***RTB***.
+12. Acessar a console do ***RTB***.
 
-12. Execute o comando abaixo:
+13. Execute o comando abaixo:
 
 >
 	clear ip bgp * soft
@@ -344,7 +346,7 @@ COMANDO | DESCRIÇÃO
 	! com Full BGP, esse procedimento pode levar de 15 a 30 minutos para
 	! completar.
 
-13. Verificar prefixos IPv4 tabela de rotas (RIB) do ***RTA***, execute o comando ***show ip route***, compare com a saída de exemplo abaixo:
+14. Verificar prefixos IPv4 tabela de rotas (RIB) do ***RTA***, execute o comando ***show ip route***, compare com a saída de exemplo abaixo:
 
 >
 	RTA#show ip route 
@@ -378,7 +380,7 @@ COMANDO | DESCRIÇÃO
 	! veja que agora as rotas estão na RIB, e o next hop é o endereço do RTB
 	! na rede em comum com o RTA (e0/0 - 1.1.1.0/24)
 
-14. Verificar prefixos IPv6 tabela de rotas (RIB) do ***RTA***, execute o comando ***show ipv6 route***, compare com a saída de exemplo abaixo:
+15. Verificar prefixos IPv6 tabela de rotas (RIB) do ***RTA***, execute o comando ***show ipv6 route***, compare com a saída de exemplo abaixo:
 
 >
 	RTA#show ipv6 route 
