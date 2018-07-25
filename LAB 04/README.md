@@ -45,13 +45,13 @@ PC-ISP-D|vPC|-|50.50.50.2/24|-|-|-|-|-|-
 HOSTNAME | TIPO | ASN | E0/0 | E0/1 | E0/2 | E0/3 | E1/0 | E1/1 | Lo0 
 :-------:|:----:|:---:|:----:|:----:|:----:|:----:|:----:|:----:|:---:
 RT-SITE-A|ROUTER|100|2003:100 :10::1/64|10:10:20::1/126|10:10:20::5/126|10:10:30::5/126|10:10:30::1/126|172:16:20::2/126|2003:100::1/128
-PC-A|vPC|-|2003:100:10::2/64|-|-|-|-|-|-
+PC-A|vPC|-|2003:100 :10::2/64|-|-|-|-|-|-
 RT-SITE-B|ROUTER|100|2003:100 :20::1/64|10:10:20::2/126|10:10:20::6/126|10:10:40::5/126|10:10:40::1/126|172:16:30::2/126|2003:100::2/128
-PC-B|vPC|-|2003:100:20::2/64|-|-|-|-|-|-
+PC-B|vPC|-|2003:100 :20::2/64|-|-|-|-|-|-
 RT-SITE-C|ROUTER|100|2003:100 :30::1/64|10:30:40::1/126|10:30:40::5/126|10:10:30::6/126|10:10:30::2/126|172:16:40::2/126|2003:100::3/128
-PC-C|vPC|-|2003:100:30::2/64|-|-|-|-|-|-
+PC-C|vPC|-|2003:100 :30::2/64|-|-|-|-|-|-
 RT-SITE-D|ROUTER|100|2003:100 :40::1/64|10:30:40::2/126|10:30:40::6/126|10:10:20::6/126|10:10:20::2/126|172:16:50::2/126|2003:100::4/128
-PC-D|vPC|-|2003:100:40::2/64|-|-|-|-|-|-
+PC-D|vPC|-|2003:100 :40::2/64|-|-|-|-|-|-
 RT-ISP-A|ROUTER|20|2003:20.20::1/64|172:16:20::1/126|-|-|-|-|-
 PC-ISP-A|vPC|-|2003:20:20::2/64|-|-|-|-|-|-
 RT-ISP-B|ROUTER|30|2003:30:30::1/64|172:16:30::1/126|-|-|-|-|-
@@ -1103,3 +1103,38 @@ O aluno deve repetir os testes de conectividade do ***PC-A*** para os equipament
     ! PERGUNTA: Porque esse prefixos não chegam no RT-SITE-A?
     !
     ! PERGUNTA: O que precisamos fazer para resolver esse problema?
+
+### Tarefa 05
+
+#### Objetivo:
+
+O aluno deve peering iBGP Full Mesh entre os equipamentos ***RT-SITE-A/B/C/D*** :
+
+1. Na console do ***RT-SITE-a*** execute o script abaixo para configura um peering com o ***RT-SITE-D***:
+
+>
+    configure terminal
+
+    router bgp 100
+
+    neighbor 100.0.0.4 remote-as 100
+    neighbor 100.0.0.4 ebgp-multihop
+    neighbor 100.0.0.4 update-source loopback 0
+
+    neighbor 2003:100::4 remote-as 100
+    neighbor 2003:100::4 ebgp-multihop
+    neighbor 2003:100::4 update-source loopback 0
+
+    address-family ipv4
+
+    neighbor 100.0.0.4 activate
+    exit
+
+    address-family ipv6
+
+    neighbor 2003:100::4 activate
+    
+    end
+
+    write
+
