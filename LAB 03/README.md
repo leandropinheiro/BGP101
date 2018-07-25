@@ -80,7 +80,7 @@ COMANDO | DESCRIÇÃO
 *debug*|Ativa informações de debug
 *undebug*|Desativa informações de debug
 
-## ATIVIDADES DO LAB 02
+## ATIVIDADES DO LAB 03
 ### Tarefa 01
 1. Acessar a console do ***RTC***.
 
@@ -147,7 +147,7 @@ COMANDO | DESCRIÇÃO
 	
 	interface ethernet 0/1
 	no ip route-cache
-	interface ehternet 0/2
+	interface ethernet 0/2
 	no ip route-cache
 	
 	! depois vamos criar rotas estáticas para balancear o acesso a interface
