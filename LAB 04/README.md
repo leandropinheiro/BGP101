@@ -16,6 +16,7 @@
 	* [Tarefa 06](https://github.com/leandropinheiro/BGP101/tree/master/LAB%2004#tarefa-06)
 	* [Tarefa 07](https://github.com/leandropinheiro/BGP101/tree/master/LAB%2004#tarefa-07)
 	* [Tarefa 08](https://github.com/leandropinheiro/BGP101/tree/master/LAB%2004#tarefa-08)
+	* [Tarefa 09](https://github.com/leandropinheiro/BGP101/tree/master/LAB%2004#tarefa-09)
 
 ### Objetivo
 Neste lab o aluno será apresentado a uma topologia simulando uma empresa com diversos Sites (A,B,C e D), integrados por links WAN redundantes, e utilizando um IGP (EIGRP) como protocolo de roteamento.
@@ -1843,3 +1844,50 @@ O aluno deve aplicar filtros nos equipamentos ***RT-SITE-A/B/C/D*** para permiti
 6. Usando como base o script acima, Na console dos equipamentos ***RT-SITE-C*** e ***RT-SITE-D** execute o seu script para configura o filtro no peering com os respectivos ISPs.
 
 7. Acesse a console dos equipamentos ***PC-ISP-B/C/D*** e verifique se o resultado da aplicação dos Filtros é semelhante ao que ocorreu com o ***PC-ISP-A***.
+
+### Tarefa 09
+
+#### Objetivo:
+
+O aluno deve verificar se o trafego está utilizando todos os links disponíveis:
+
+1. Na console do ***RT-SITE-A*** verifique com traceroute as rotas para os equipamentos ***PC-ISP-B/C/D*** :
+
+>
+    RT-SITE-A#traceroute 30.30.30.2 numeric probe 4 source loopback 0
+    Type escape sequence to abort.
+    Tracing the route to 30.30.30.2
+    VRF info: (vrf in name/id, vrf out name/id)
+      1 10.10.20.2 1 msec
+        10.10.20.6 2 msec
+        10.10.20.2 1 msec
+        10.10.20.6 0 msec
+      2 172.16.30.1 [AS 30] 1 msec 0 msec 1 msec 0 msec
+      3 30.30.30.2 [AS 30] 1 msec 1 msec 0 msec 0 msec
+
+    RT-SITE-A#traceroute 40.40.40.2 numeric probe 4 source loopback 0
+    Type escape sequence to abort.
+    Tracing the route to 40.40.40.2
+    VRF info: (vrf in name/id, vrf out name/id)
+      1 10.10.30.2 1 msec
+        10.10.30.6 0 msec
+        10.10.30.2 0 msec
+        10.10.30.6 0 msec
+      2 172.16.40.1 [AS 40] 1 msec 0 msec 1 msec 0 msec
+      3 40.40.40.2 [AS 40] 2 msec 0 msec 0 msec 0 msec
+
+    RT-SITE-A#traceroute 50.50.50.2 numeric probe 4 source loopback 0
+    Type escape sequence to abort.
+    Tracing the route to 50.50.50.2
+    VRF info: (vrf in name/id, vrf out name/id)
+      1 10.10.30.6 1 msec
+        10.10.20.2 0 msec
+        10.10.20.6 0 msec
+        10.10.30.2 1 msec
+      2 10.30.40.2 0 msec
+        10.20.40.6 0 msec 0 msec
+        10.30.40.2 0 msec
+      3 172.16.50.1 [AS 50] 1 msec 0 msec 1 msec 0 msec
+      4 50.50.50.2 [AS 50] 1 msec 1 msec 0 msec 1 msec
+      
+    RT-SITE-A#
