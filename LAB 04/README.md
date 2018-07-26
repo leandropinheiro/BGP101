@@ -17,6 +17,7 @@
 	* [Tarefa 07](https://github.com/leandropinheiro/BGP101/tree/master/LAB%2004#tarefa-07)
 	* [Tarefa 08](https://github.com/leandropinheiro/BGP101/tree/master/LAB%2004#tarefa-08)
 	* [Tarefa 09](https://github.com/leandropinheiro/BGP101/tree/master/LAB%2004#tarefa-09)
+	* [Tarefa 10](https://github.com/leandropinheiro/BGP101/tree/master/LAB%2004#tarefa-10)
 
 ### Objetivo
 Neste lab o aluno será apresentado a uma topologia simulando uma empresa com diversos Sites (A,B,C e D), integrados por links WAN redundantes, e utilizando um IGP (EIGRP) como protocolo de roteamento.
@@ -883,7 +884,7 @@ O aluno deve realizar as modificações necessárias nos IGPs (EIGRP) dos rotead
 
     ! tome nota dos IPs v4 e v6 na interface que conecta com o ISP-B
 
-    RT-SITE-B#sh run | sec route eigrp
+    RT-SITE-B#sh run | sec router eigrp
     router eigrp 100
      network 10.10.20.0 0.0.0.3
      network 10.10.20.4 0.0.0.3
@@ -1023,7 +1024,7 @@ O aluno deve realizar as modificações necessárias nos IGPs (EIGRP) dos rotead
     ! Adicionamos a Interface E1/1 no IGP, e tornamos a interface Passiva, para evitar
     ! que a mesma envie pocaotes EIGRP para o roteador do ISP
 
-### Tarefa 04
+### Tarefa 05
 
 #### Objetivo:
 
@@ -1080,7 +1081,7 @@ O aluno deve repetir os testes de conectividade do ***PC-A*** para os equipament
 
     ! veja que os pefixos provenientes do ISP-D não estão chegando via BGP no RT-SITE-A
 
-2. Na console do ***RT-SITE-B*** verifique os prefixos **50.50.50.0** e ***2003:50:50::/64*** no BGP:
+3. Na console do ***RT-SITE-B*** verifique os prefixos **50.50.50.0** e ***2003:50:50::/64*** no BGP:
 
 >
     RT-SITE-B#show bgp ipv4 unicast 50.50.50.0
@@ -1112,7 +1113,7 @@ O aluno deve repetir os testes de conectividade do ***PC-A*** para os equipament
     !
     ! PERGUNTA: O que precisamos fazer para resolver esse problema?
 
-### Tarefa 05
+### Tarefa 06
 
 #### Objetivo:
 
@@ -1230,7 +1231,7 @@ O aluno deve peering iBGP Full Mesh entre os equipamentos ***RT-SITE-A/B/C/D*** 
 
     write
 
-### Tarefa 06
+### Tarefa 07
 
 #### Objetivo:
 
@@ -1388,7 +1389,7 @@ O aluno deve repetir os testes de conectividade do ***PC-A*** para os equipament
 
     ! temos certeza que todos os SITES saem por todas as saídas dos ISPs que a companhia possui
 
-### Tarefa 07
+### Tarefa 08
 
 #### Objetivo:
 
@@ -1493,7 +1494,7 @@ O aluno deve realizar testes de conectividade do ***PC-ISP-A*** para os equipame
     ! isso não é desejável, a não ser que sejamos um projedor de internet
     ! interligando nossos clientes
 
-### Tarefa 08
+### Tarefa 09
 
 #### Objetivo:
 
@@ -1845,7 +1846,7 @@ O aluno deve aplicar filtros nos equipamentos ***RT-SITE-A/B/C/D*** para permiti
 
 7. Acesse a console dos equipamentos ***PC-ISP-B/C/D*** e verifique se o resultado da aplicação dos Filtros é semelhante ao que ocorreu com o ***PC-ISP-A***.
 
-### Tarefa 09
+### Tarefa 10
 
 #### Objetivo:
 
