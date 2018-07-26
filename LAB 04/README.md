@@ -117,6 +117,7 @@ COMANDO | DESCRIÇÃO
 *address-family [ipv4][ipv6]*|Acessa a configuração BGP de uma versão especifica do protocolo IP
 *neighbor 1.1.1.1 active*|Ativa uma conexão de peering BGP com o roteador 1.1.1.1
 *neighbor 1.1.1.1 next-hop-self*|Substitui o endereço do *next hop* dos prefixos enviados ao peer 1.1.1.1, com o endereço ip local
+*aggregate-address [prefixo_ipv4 \| prefixo_ipv6/length] [mask ipv4_netmask] [summary-only]* | Injeta uma rota sumarizada no BGP, contanto que exista a rede exata ou uma de suas subnets na RIB
 *clear ip bgp \[1.1.1.1\|\*\] [soft]*|Reseta o peering BGP com o host, ou com todos \[\"\*\"\], se usar a key \[soft\] aplica as alterações de configuração sem derrubar a sessão TCP.
 *debug*|Ativa informações de debug
 *undebug*|Desativa informações de debug
