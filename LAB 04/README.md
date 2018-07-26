@@ -1110,7 +1110,7 @@ O aluno deve repetir os testes de conectividade do ***PC-A*** para os equipament
 
 O aluno deve peering iBGP Full Mesh entre os equipamentos ***RT-SITE-A/B/C/D*** :
 
-1. Na console do ***RT-SITE-a*** execute o script abaixo para configura um peering com o ***RT-SITE-D***:
+1. Na console do ***RT-SITE-A*** execute o script abaixo para configura um peering com o ***RT-SITE-D***:
 
 >
     configure terminal
@@ -1138,3 +1138,86 @@ O aluno deve peering iBGP Full Mesh entre os equipamentos ***RT-SITE-A/B/C/D*** 
 
     write
 
+2. Na console do ***RT-SITE-B*** execute o script abaixo para configura um peering com o ***RT-SITE-C***:
+
+>
+    configure terminal
+
+    router bgp 100
+
+    neighbor 100.0.0.3 remote-as 100
+    neighbor 100.0.0.3 ebgp-multihop
+    neighbor 100.0.0.3 update-source loopback 0
+
+    neighbor 2003:100::3 remote-as 100
+    neighbor 2003:100::3 ebgp-multihop
+    neighbor 2003:100::3 update-source loopback 0
+
+    address-family ipv4
+
+    neighbor 100.0.0.3 activate
+    exit
+
+    address-family ipv6
+
+    neighbor 2003:100::3 activate
+    
+    end
+
+    write
+
+3. Na console do ***RT-SITE-C*** execute o script abaixo para configura um peering com o ***RT-SITE-B***:
+
+>
+    configure terminal
+
+    router bgp 100
+
+    neighbor 100.0.0.2 remote-as 100
+    neighbor 100.0.0.2 ebgp-multihop
+    neighbor 100.0.0.2 update-source loopback 0
+
+    neighbor 2003:100::2 remote-as 100
+    neighbor 2003:100::2 ebgp-multihop
+    neighbor 2003:100::2 update-source loopback 0
+
+    address-family ipv4
+
+    neighbor 100.0.0.2 activate
+    exit
+
+    address-family ipv6
+
+    neighbor 2003:100::2 activate
+    
+    end
+
+    write
+
+4. Na console do ***RT-SITE-D*** execute o script abaixo para configura um peering com o ***RT-SITE-A***:
+
+>
+    configure terminal
+
+    router bgp 100
+
+    neighbor 100.0.0.1 remote-as 100
+    neighbor 100.0.0.1 ebgp-multihop
+    neighbor 100.0.0.1 update-source loopback 0
+
+    neighbor 2003:100::1 remote-as 100
+    neighbor 2003:100::1 ebgp-multihop
+    neighbor 2003:100::1 update-source loopback 0
+
+    address-family ipv4
+
+    neighbor 100.0.0.1 activate
+    exit
+
+    address-family ipv6
+
+    neighbor 2003:100::1 activate
+    
+    end
+
+    write
