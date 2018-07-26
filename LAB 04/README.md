@@ -9,6 +9,13 @@
 * [Comandos utilizados no LAB](https://github.com/leandropinheiro/BGP101/tree/master/LAB%2004#comandos-utilizados-no-lab)
 * [ATIVIDADES DO LAB 04](https://github.com/leandropinheiro/BGP101/tree/master/LAB%2004#atividades-do-lab-03)
 	* [Tarefa 01](https://github.com/leandropinheiro/BGP101/tree/master/LAB%2004#tarefa-01)
+	* [Tarefa 02](https://github.com/leandropinheiro/BGP101/tree/master/LAB%2004#tarefa-02)
+	* [Tarefa 03](https://github.com/leandropinheiro/BGP101/tree/master/LAB%2004#tarefa-03)
+	* [Tarefa 04](https://github.com/leandropinheiro/BGP101/tree/master/LAB%2004#tarefa-04)
+	* [Tarefa 05](https://github.com/leandropinheiro/BGP101/tree/master/LAB%2004#tarefa-05)
+	* [Tarefa 06](https://github.com/leandropinheiro/BGP101/tree/master/LAB%2004#tarefa-06)
+	* [Tarefa 07](https://github.com/leandropinheiro/BGP101/tree/master/LAB%2004#tarefa-07)
+	* [Tarefa 08](https://github.com/leandropinheiro/BGP101/tree/master/LAB%2004#tarefa-08)
 
 ### Objetivo
 Neste lab o aluno será apresentado a uma topologia simulando uma empresa com diversos Sites (A,B,C e D), integrados por links WAN redundantes, e utilizando um IGP (EIGRP) como protocolo de roteamento.
