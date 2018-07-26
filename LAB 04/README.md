@@ -1221,3 +1221,618 @@ O aluno deve peering iBGP Full Mesh entre os equipamentos ***RT-SITE-A/B/C/D*** 
     end
 
     write
+
+### Tarefa 06
+
+#### Objetivo:
+
+O aluno deve repetir os testes de conectividade do ***PC-A*** para os equipamentos ***PC-ISP-A, PC-ISP-B, PC-ISP-C e PC-ISP-D*** :
+
+1. Na console do ***PC-A*** execute ping para os equipamentos:
+
+>
+    PC-A> ping 20.20.20.2
+
+    84 bytes from 20.20.20.2 icmp_seq=1 ttl=62 time=0.699 ms
+    84 bytes from 20.20.20.2 icmp_seq=2 ttl=62 time=0.640 ms
+    84 bytes from 20.20.20.2 icmp_seq=3 ttl=62 time=0.618 ms
+    84 bytes from 20.20.20.2 icmp_seq=4 ttl=62 time=0.461 ms
+    84 bytes from 20.20.20.2 icmp_seq=5 ttl=62 time=0.503 ms
+
+    PC-A> ping 30.30.30.2
+
+    84 bytes from 30.30.30.2 icmp_seq=1 ttl=61 time=0.604 ms
+    84 bytes from 30.30.30.2 icmp_seq=2 ttl=61 time=0.544 ms
+    84 bytes from 30.30.30.2 icmp_seq=3 ttl=61 time=0.575 ms
+    84 bytes from 30.30.30.2 icmp_seq=4 ttl=61 time=0.588 ms
+    84 bytes from 30.30.30.2 icmp_seq=5 ttl=61 time=0.664 ms
+
+    PC-A> ping 40.40.40.2
+
+    84 bytes from 40.40.40.2 icmp_seq=1 ttl=61 time=0.529 ms
+    84 bytes from 40.40.40.2 icmp_seq=2 ttl=61 time=0.551 ms
+    84 bytes from 40.40.40.2 icmp_seq=3 ttl=61 time=0.804 ms
+    84 bytes from 40.40.40.2 icmp_seq=4 ttl=61 time=0.785 ms
+    84 bytes from 40.40.40.2 icmp_seq=5 ttl=61 time=0.688 ms
+
+    PC-A> ping 50.50.50.2
+
+    84 bytes from 50.50.50.2 icmp_seq=1 ttl=60 time=1.669 ms
+    84 bytes from 50.50.50.2 icmp_seq=2 ttl=60 time=1.047 ms
+    84 bytes from 50.50.50.2 icmp_seq=3 ttl=60 time=0.779 ms
+    84 bytes from 50.50.50.2 icmp_seq=4 ttl=60 time=0.902 ms
+    84 bytes from 50.50.50.2 icmp_seq=5 ttl=60 time=1.086 ms
+
+    PC-A>
+
+    ! agora temos conectividade com todas as saídas para os ISPs
+
+2. Na console do ***PC-B*** execute ping para os equipamentos:
+
+>
+    PC-B> ping 20.20.20.2
+
+    84 bytes from 20.20.20.2 icmp_seq=1 ttl=61 time=1.786 ms
+    84 bytes from 20.20.20.2 icmp_seq=2 ttl=61 time=0.882 ms
+    84 bytes from 20.20.20.2 icmp_seq=3 ttl=61 time=0.880 ms
+    84 bytes from 20.20.20.2 icmp_seq=4 ttl=61 time=0.896 ms
+    84 bytes from 20.20.20.2 icmp_seq=5 ttl=61 time=0.687 ms
+
+    PC-B> ping 30.30.30.2
+
+    84 bytes from 30.30.30.2 icmp_seq=1 ttl=62 time=1.676 ms
+    84 bytes from 30.30.30.2 icmp_seq=2 ttl=62 time=0.470 ms
+    84 bytes from 30.30.30.2 icmp_seq=3 ttl=62 time=0.399 ms
+    84 bytes from 30.30.30.2 icmp_seq=4 ttl=62 time=0.367 ms
+    84 bytes from 30.30.30.2 icmp_seq=5 ttl=62 time=0.439 ms
+
+    PC-B> ping 40.40.40.2
+
+    84 bytes from 40.40.40.2 icmp_seq=1 ttl=60 time=2.127 ms
+    84 bytes from 40.40.40.2 icmp_seq=2 ttl=60 time=1.290 ms
+    84 bytes from 40.40.40.2 icmp_seq=3 ttl=60 time=0.717 ms
+    84 bytes from 40.40.40.2 icmp_seq=4 ttl=60 time=1.072 ms
+    84 bytes from 40.40.40.2 icmp_seq=5 ttl=60 time=1.028 ms
+    
+    PC-B> ping 50.50.50.2
+
+    84 bytes from 50.50.50.2 icmp_seq=1 ttl=61 time=1.843 ms
+    84 bytes from 50.50.50.2 icmp_seq=2 ttl=61 time=0.568 ms
+    84 bytes from 50.50.50.2 icmp_seq=3 ttl=61 time=0.819 ms
+    84 bytes from 50.50.50.2 icmp_seq=4 ttl=61 time=0.777 ms
+    84 bytes from 50.50.50.2 icmp_seq=5 ttl=61 time=0.823 ms
+
+    PC-B>
+    
+3. Na console do ***PC-C*** execute ping para os equipamentos:
+
+>
+    PC-C> ping 20.20.20.2
+
+    84 bytes from 20.20.20.2 icmp_seq=1 ttl=61 time=1.648 ms
+    84 bytes from 20.20.20.2 icmp_seq=2 ttl=61 time=0.557 ms
+    84 bytes from 20.20.20.2 icmp_seq=3 ttl=61 time=0.762 ms
+    84 bytes from 20.20.20.2 icmp_seq=4 ttl=61 time=0.623 ms
+    84 bytes from 20.20.20.2 icmp_seq=5 ttl=61 time=0.728 ms
+
+    PC-C> ping 30.30.30.2
+
+    84 bytes from 30.30.30.2 icmp_seq=1 ttl=60 time=1.783 ms
+    84 bytes from 30.30.30.2 icmp_seq=2 ttl=60 time=0.669 ms
+    84 bytes from 30.30.30.2 icmp_seq=3 ttl=60 time=1.069 ms
+    84 bytes from 30.30.30.2 icmp_seq=4 ttl=60 time=1.045 ms
+    84 bytes from 30.30.30.2 icmp_seq=5 ttl=60 time=0.786 ms
+
+    PC-C> ping 40.40.40.2
+
+    84 bytes from 40.40.40.2 icmp_seq=1 ttl=62 time=1.535 ms
+    84 bytes from 40.40.40.2 icmp_seq=2 ttl=62 time=0.462 ms
+    84 bytes from 40.40.40.2 icmp_seq=3 ttl=62 time=0.349 ms
+    84 bytes from 40.40.40.2 icmp_seq=4 ttl=62 time=0.446 ms
+    84 bytes from 40.40.40.2 icmp_seq=5 ttl=62 time=0.411 ms
+
+    PC-C> ping 50.50.50.2
+
+    84 bytes from 50.50.50.2 icmp_seq=1 ttl=61 time=1.710 ms
+    84 bytes from 50.50.50.2 icmp_seq=2 ttl=61 time=0.623 ms
+    84 bytes from 50.50.50.2 icmp_seq=3 ttl=61 time=0.639 ms
+    84 bytes from 50.50.50.2 icmp_seq=4 ttl=61 time=0.798 ms
+    84 bytes from 50.50.50.2 icmp_seq=5 ttl=61 time=0.590 ms
+
+    PC-C>
+
+4. Na console do ***PC-D*** execute ping para os equipamentos:
+
+>
+    PC-D> ping 20.20.20.2
+
+    84 bytes from 20.20.20.2 icmp_seq=1 ttl=60 time=1.813 ms
+    84 bytes from 20.20.20.2 icmp_seq=2 ttl=60 time=0.731 ms
+    84 bytes from 20.20.20.2 icmp_seq=3 ttl=60 time=1.001 ms
+    84 bytes from 20.20.20.2 icmp_seq=4 ttl=60 time=1.075 ms
+    84 bytes from 20.20.20.2 icmp_seq=5 ttl=60 time=0.954 ms
+
+    PC-D> ping 30.30.30.2
+
+    84 bytes from 30.30.30.2 icmp_seq=1 ttl=61 time=1.764 ms
+    84 bytes from 30.30.30.2 icmp_seq=2 ttl=61 time=0.588 ms
+    84 bytes from 30.30.30.2 icmp_seq=3 ttl=61 time=0.649 ms
+    84 bytes from 30.30.30.2 icmp_seq=4 ttl=61 time=0.563 ms
+    84 bytes from 30.30.30.2 icmp_seq=5 ttl=61 time=0.605 ms
+
+    PC-D> ping 40.40.40.2
+
+    84 bytes from 40.40.40.2 icmp_seq=1 ttl=61 time=1.639 ms
+    84 bytes from 40.40.40.2 icmp_seq=2 ttl=61 time=0.564 ms
+    84 bytes from 40.40.40.2 icmp_seq=3 ttl=61 time=0.532 ms
+    84 bytes from 40.40.40.2 icmp_seq=4 ttl=61 time=0.546 ms
+    84 bytes from 40.40.40.2 icmp_seq=5 ttl=61 time=0.786 ms
+
+    PC-D> ping 50.50.50.2
+
+    84 bytes from 50.50.50.2 icmp_seq=1 ttl=62 time=1.704 ms
+    84 bytes from 50.50.50.2 icmp_seq=2 ttl=62 time=0.589 ms
+    84 bytes from 50.50.50.2 icmp_seq=3 ttl=62 time=0.498 ms
+    84 bytes from 50.50.50.2 icmp_seq=4 ttl=62 time=0.584 ms
+    84 bytes from 50.50.50.2 icmp_seq=5 ttl=62 time=0.989 ms
+
+    PC-D>
+
+    ! temos certeza que todos os SITES saem por todas as saídas dos ISPs que a companhia possui
+
+### Tarefa 07
+
+#### Objetivo:
+
+O aluno deve realizar testes de conectividade do ***PC-ISP-A*** para os equipamentos ***PC-A/B/C/D e PC-ISP-B/C/D*** :
+
+1. Na console do ***PC-ISP-A*** execute ping para os equipamentos ***PC-A/B/C/D*** :
+
+>
+    PCISPA> ping 100.10.0.2
+
+    84 bytes from 100.10.0.2 icmp_seq=1 ttl=62 time=1.534 ms
+    84 bytes from 100.10.0.2 icmp_seq=2 ttl=62 time=0.596 ms
+    84 bytes from 100.10.0.2 icmp_seq=3 ttl=62 time=0.689 ms
+    84 bytes from 100.10.0.2 icmp_seq=4 ttl=62 time=1.087 ms
+    84 bytes from 100.10.0.2 icmp_seq=5 ttl=62 time=0.526 ms
+
+    PCISPA> ping 100.20.0.2
+
+    84 bytes from 100.20.0.2 icmp_seq=1 ttl=61 time=2.042 ms
+    84 bytes from 100.20.0.2 icmp_seq=2 ttl=61 time=0.652 ms
+    84 bytes from 100.20.0.2 icmp_seq=3 ttl=61 time=0.598 ms
+    84 bytes from 100.20.0.2 icmp_seq=4 ttl=61 time=0.653 ms
+    84 bytes from 100.20.0.2 icmp_seq=5 ttl=61 time=0.632 ms
+
+    PCISPA> ping 100.30.0.2
+
+    84 bytes from 100.30.0.2 icmp_seq=1 ttl=61 time=1.731 ms
+    84 bytes from 100.30.0.2 icmp_seq=2 ttl=61 time=0.647 ms
+    84 bytes from 100.30.0.2 icmp_seq=3 ttl=61 time=0.641 ms
+    84 bytes from 100.30.0.2 icmp_seq=4 ttl=61 time=0.654 ms
+    84 bytes from 100.30.0.2 icmp_seq=5 ttl=61 time=0.600 ms
+
+    PCISPA> ping 100.40.0.2
+
+    84 bytes from 100.40.0.2 icmp_seq=1 ttl=60 time=1.908 ms
+    84 bytes from 100.40.0.2 icmp_seq=2 ttl=60 time=0.693 ms
+    84 bytes from 100.40.0.2 icmp_seq=3 ttl=60 time=0.763 ms
+    84 bytes from 100.40.0.2 icmp_seq=4 ttl=60 time=1.174 ms
+    84 bytes from 100.40.0.2 icmp_seq=5 ttl=60 time=1.021 ms
+
+    PCISPA>
+
+    ! até aqui tudo execente, o ISP está recebendo o Bloco da Companhia e acessa 
+    ! os recursos com IP Publico em todos os Sites
+
+2. Na console do ***PC-ISP-A*** execute ping e traceroute para os equipamentos ***PC-ISP-B/C/D*** :
+
+>
+    PCISPA> ping 30.30.30.2
+
+    84 bytes from 30.30.30.2 icmp_seq=1 ttl=60 time=3.342 ms
+    84 bytes from 30.30.30.2 icmp_seq=2 ttl=60 time=0.714 ms
+    84 bytes from 30.30.30.2 icmp_seq=3 ttl=60 time=1.031 ms
+    84 bytes from 30.30.30.2 icmp_seq=4 ttl=60 time=0.752 ms
+    84 bytes from 30.30.30.2 icmp_seq=5 ttl=60 time=1.105 ms
+
+    PCISPA> trace 30.30.30.2
+    trace to 30.30.30.2, 8 hops max, press Ctrl+C to stop
+     1   20.20.20.1   0.290 ms  0.193 ms  0.203 ms
+     2   172.16.20.2   0.471 ms  0.433 ms  0.429 ms
+     3   10.10.20.6   0.632 ms  0.594 ms  0.556 ms
+     4   172.16.30.1   0.856 ms  0.758 ms  0.807 ms
+     5   *30.30.30.2   0.780 ms (ICMP type:3, code:3, Destination port unreachable)
+
+    PCISPA> ping 40.40.40.2
+
+    84 bytes from 40.40.40.2 icmp_seq=1 ttl=60 time=1.764 ms
+    84 bytes from 40.40.40.2 icmp_seq=2 ttl=60 time=0.702 ms
+    84 bytes from 40.40.40.2 icmp_seq=3 ttl=60 time=0.740 ms
+    84 bytes from 40.40.40.2 icmp_seq=4 ttl=60 time=0.707 ms
+    84 bytes from 40.40.40.2 icmp_seq=5 ttl=60 time=0.864 ms
+
+    PCISPA> trace 40.40.40.2
+    trace to 40.40.40.2, 8 hops max, press Ctrl+C to stop
+     1   20.20.20.1   0.245 ms  0.132 ms  0.142 ms
+     2   172.16.20.2   0.431 ms  0.283 ms  0.305 ms
+     3   10.10.30.6   0.592 ms  0.444 ms  0.507 ms
+     4   172.16.40.1   0.609 ms  0.632 ms  0.567 ms
+     5   *40.40.40.2   0.636 ms (ICMP type:3, code:3, Destination port unreachable)
+
+    PCISPA> ping 50.50.50.2
+
+    84 bytes from 50.50.50.2 icmp_seq=1 ttl=59 time=2.477 ms
+    84 bytes from 50.50.50.2 icmp_seq=2 ttl=59 time=0.967 ms
+    84 bytes from 50.50.50.2 icmp_seq=3 ttl=59 time=1.023 ms
+    84 bytes from 50.50.50.2 icmp_seq=4 ttl=59 time=0.904 ms
+    84 bytes from 50.50.50.2 icmp_seq=5 ttl=59 time=0.772 ms
+
+    PCISPA> trace 50.50.50.2
+    trace to 50.50.50.2, 8 hops max, press Ctrl+C to stop
+     1   20.20.20.1   0.230 ms  0.143 ms  0.153 ms
+     2   172.16.20.2   0.327 ms  0.277 ms  0.260 ms
+     3   10.10.30.6   0.476 ms  0.494 ms  0.443 ms
+     4   10.30.40.6   0.577 ms  0.527 ms  0.577 ms
+     5   172.16.50.1   0.781 ms  0.694 ms  0.679 ms
+     6   *50.50.50.2   0.938 ms (ICMP type:3, code:3, Destination port unreachable)
+
+    PCISPA>
+
+    ! agora já não está tão bom, os ISPs estão usando a rede da companhia
+    ! como trasito para atingir uns aos outros
+    ! isso não é desejável, a não ser que sejamos um projedor de internet
+    ! interligando nossos clientes
+
+### Tarefa 08
+
+#### Objetivo:
+
+O aluno deve aplicar filtros nos equipamentos ***RT-SITE-A/B/C/D*** para permitir os prefixos IPv4 e IPv6 do ASN 100, e filtrar as demais redes de serem propagadas para os ISPs:
+
+1. Na console do ***RT-ISP-A*** verifique as a topologia BGP e a RIB :
+
+>
+    RT-ISP-A#show bgp all
+    For address family: IPv4 Unicast
+
+    BGP table version is 31, local router ID is 172.16.20.1
+    Status codes: s suppressed, d damped, h history, * valid, > best, i - internal,
+                  r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter,
+                  x best-external, a additional-path, c RIB-compressed,
+    Origin codes: i - IGP, e - EGP, ? - incomplete
+    RPKI validation codes: V valid, I invalid, N Not found
+
+         Network          Next Hop            Metric LocPrf Weight Path
+     *>  20.0.0.0         0.0.0.0                  0         32768 i
+     *>  20.20.20.0/24    0.0.0.0                  0         32768 i
+     *>  30.0.0.0         172.16.20.2                            0 100 30 i
+     *>  30.30.30.0/24    172.16.20.2                            0 100 30 i
+     *>  40.0.0.0         172.16.20.2                            0 100 40 i
+     *>  40.40.40.0/24    172.16.20.2                            0 100 40 i
+     *>  100.0.0.0        172.16.20.2              0             0 100 i
+     *>  172.16.20.0/30   0.0.0.0                  0         32768 i
+     *>  172.16.30.0/30   172.16.20.2                            0 100 30 i
+     *>  172.16.40.0/30   172.16.20.2                            0 100 40 i
+
+    For address family: IPv6 Unicast
+
+    BGP table version is 24, local router ID is 172.16.20.1
+    Status codes: s suppressed, d damped, h history, * valid, > best, i - internal,
+                  r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter,
+                  x best-external, a additional-path, c RIB-compressed,
+    Origin codes: i - IGP, e - EGP, ? - incomplete
+    RPKI validation codes: V valid, I invalid, N Not found
+
+         Network          Next Hop            Metric LocPrf Weight Path
+     *>  172:16:20::/126  ::                       0         32768 i
+     *>  172:16:30::/126  172:16:20::2                           0 100 30 i
+     *>  172:16:40::/126  172:16:20::2                           0 100 40 i
+     *>  172:16:50::/126  172:16:20::2                           0 100 50 i
+     *>  2003:20::/32     ::                       0         32768 i
+     *>  2003:20:20::/64  ::                       0         32768 i
+     *>  2003:30::/32     172:16:20::2                           0 100 30 i
+     *>  2003:30:30::/64  172:16:20::2                           0 100 30 i
+     *>  2003:40::/32     172:16:20::2                           0 100 40 i
+     *>  2003:40:40::/64  172:16:20::2                           0 100 40 i
+     *>  2003:50::/32     172:16:20::2                           0 100 50 i
+     *>  2003:50:50::/64  172:16:20::2                           0 100 50 i
+     *>  2003:100::/32    172:16:20::2             0             0 100 i
+
+    For address family: IPv4 Multicast
+
+
+    For address family: MVPNv4 Unicast
+
+    RT-ISP-A#
+
+    RT-ISP-A#sh ip route
+    Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+           D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+           N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+           E1 - OSPF external type 1, E2 - OSPF external type 2
+           i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+           ia - IS-IS inter area, * - candidate default, U - per-user static route
+           o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+           a - application route
+           + - replicated route, % - next hop override
+
+    Gateway of last resort is not set
+
+          20.0.0.0/8 is variably subnetted, 3 subnets, 3 masks
+    S        20.0.0.0/8 is directly connected, Null0
+    C        20.20.20.0/24 is directly connected, Ethernet0/0
+    L        20.20.20.1/32 is directly connected, Ethernet0/0
+          30.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
+    B        30.0.0.0/8 [20/0] via 172.16.20.2, 02:30:10
+    B        30.30.30.0/24 [20/0] via 172.16.20.2, 02:30:10
+          40.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
+    B        40.0.0.0/8 [20/0] via 172.16.20.2, 10:20:15
+    B        40.40.40.0/24 [20/0] via 172.16.20.2, 10:20:15
+    B     100.0.0.0/8 [20/0] via 172.16.20.2, 10:27:33
+          172.16.0.0/16 is variably subnetted, 4 subnets, 2 masks
+    C        172.16.20.0/30 is directly connected, Ethernet0/1
+    L        172.16.20.1/32 is directly connected, Ethernet0/1
+    B        172.16.30.0/30 [20/0] via 172.16.20.2, 02:30:10
+    B        172.16.40.0/30 [20/0] via 172.16.20.2, 10:20:15
+    RT-ISP-A#
+
+2. Na console do ***RT-SITE-A*** execute o script abaixo para configura o filtro no peering com o ***RT-ISP-A***:
+
+>
+    configure terminal
+
+    ip prefix-list MY_IPV4_BLOCK description PERMITE O BLOCO 100.0.0.0/8 e suas subnets
+    ip prefix-list MY_IPV4_BLOCK seq 5 permit 100.0.0.0/8 le 32
+
+    ipv6 prefix-list MY_IPV6_BLOCK description PERMITE O BLOCO 2003:100::/32 e suas subnets
+    ipv6 prefix-list MY_IPV6_BLOCK permit 2003:100::/32 le 128
+
+    route-map BGP_IPV4_FILTER_ISP_OUT permit 10
+    description PERMITE O BLOCO LOCAL
+    match ip address prefix-list MY_IPV4_BLOCK
+
+    route-map BGP_IPV6_FILTER_ISP_OUT permit 10
+    description PERMITE O BLOCO LOCAL
+    match ipv6 address prefix-list MY_IPV6_BLOCK
+
+    exit
+
+    router bgp 100
+
+    address-family ipv4
+    neighbor 172.16.20.1 route-map BGP_IPV4_FILTER_ISP_OUT out
+    exit
+
+    address-family ipv6
+    neighbor 172:16:20::1 route-map BGP_IPV6_FILTER_ISP_OUT out
+
+    end
+
+    write
+
+    ! precisa fazer um Soft Reset na conexão BGP com o RT-ISP-A para
+    ! aplicar as alterações de filtros no peering
+
+    clear ip bgp 172.16.20.1 soft
+
+3. Na console do ***RT-ISP-A*** verifique as a topologia BGP e a RIB :
+
+>
+    RT-ISP-A#show bgp all
+    For address family: IPv4 Unicast
+
+    BGP table version is 51, local router ID is 172.16.20.1
+    Status codes: s suppressed, d damped, h history, * valid, > best, i - internal,
+                  r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter,
+                  x best-external, a additional-path, c RIB-compressed,
+    Origin codes: i - IGP, e - EGP, ? - incomplete
+    RPKI validation codes: V valid, I invalid, N Not found
+
+         Network          Next Hop            Metric LocPrf Weight Path
+     *>  20.0.0.0         0.0.0.0                  0         32768 i
+     *>  20.20.20.0/24    0.0.0.0                  0         32768 i
+     *>  100.0.0.0        172.16.20.2              0             0 100 i
+     *>  172.16.20.0/30   0.0.0.0                  0         32768 i
+
+    For address family: IPv6 Unicast
+
+    BGP table version is 35, local router ID is 172.16.20.1
+    Status codes: s suppressed, d damped, h history, * valid, > best, i - internal,
+                  r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter,
+                  x best-external, a additional-path, c RIB-compressed,
+    Origin codes: i - IGP, e - EGP, ? - incomplete
+    RPKI validation codes: V valid, I invalid, N Not found
+
+         Network          Next Hop            Metric LocPrf Weight Path
+     *>  172:16:20::/126  ::                       0         32768 i
+     *>  2003:20::/32     ::                       0         32768 i
+     *>  2003:20:20::/64  ::                       0         32768 i
+     *>  2003:100::/32    172:16:20::2             0             0 100 i
+
+    For address family: IPv4 Multicast
+
+
+    For address family: MVPNv4 Unicast
+
+    RT-ISP-A#
+
+    RT-ISP-A#show ip route
+    Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+          D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+           N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+           E1 - OSPF external type 1, E2 - OSPF external type 2
+           i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+           ia - IS-IS inter area, * - candidate default, U - per-user static route
+           o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+           a - application route
+           + - replicated route, % - next hop override
+
+    Gateway of last resort is not set
+
+          20.0.0.0/8 is variably subnetted, 3 subnets, 3 masks
+    S        20.0.0.0/8 is directly connected, Null0
+    C        20.20.20.0/24 is directly connected, Ethernet0/0
+    L        20.20.20.1/32 is directly connected, Ethernet0/0
+    B     100.0.0.0/8 [20/0] via 172.16.20.2, 00:03:16
+          172.16.0.0/16 is variably subnetted, 2 subnets, 2 masks
+    C        172.16.20.0/30 is directly connected, Ethernet0/1
+    L        172.16.20.1/32 is directly connected, Ethernet0/1
+    RT-ISP-A#
+
+    RT-ISP-A#show ipv6 route
+    IPv6 Routing Table - default - 7 entries
+    Codes: C - Connected, L - Local, S - Static, U - Per-user Static route
+           B - BGP, HA - Home Agent, MR - Mobile Router, R - RIP
+           H - NHRP, I1 - ISIS L1, I2 - ISIS L2, IA - ISIS interarea
+           IS - ISIS summary, D - EIGRP, EX - EIGRP external, NM - NEMO
+           ND - ND Default, NDp - ND Prefix, DCE - Destination, NDr - Redirect
+           O - OSPF Intra, OI - OSPF Inter, OE1 - OSPF ext 1, OE2 - OSPF ext 2
+           ON1 - OSPF NSSA ext 1, ON2 - OSPF NSSA ext 2, ls - LISP site
+           ld - LISP dyn-EID, a - Application
+    C   172:16:20::/126 [0/0]
+         via Ethernet0/1, directly connected
+    L   172:16:20::1/128 [0/0]
+         via Ethernet0/1, receive
+    S   2003:20::/32 [1/0]
+         via Null0, directly connected
+    C   2003:20:20::/64 [0/0]
+         via Ethernet0/0, directly connected
+    L   2003:20:20::1/128 [0/0]
+         via Ethernet0/0, receive
+    B   2003:100::/32 [20/0]
+         via FE80::A8BB:CCFF:FE00:1011, Ethernet0/1
+    L   FF00::/8 [0/0]
+         via Null0, receive
+    RT-ISP-A#
+
+4. Na console do ***PC-ISP-A*** execute ping para os equipamentos ***PC-A/B/C/D*** :
+
+>
+    PCISPA> ping 100.10.0.2
+
+    84 bytes from 100.10.0.2 icmp_seq=1 ttl=62 time=1.569 ms
+    84 bytes from 100.10.0.2 icmp_seq=2 ttl=62 time=0.483 ms
+    84 bytes from 100.10.0.2 icmp_seq=3 ttl=62 time=0.530 ms
+    84 bytes from 100.10.0.2 icmp_seq=4 ttl=62 time=0.586 ms
+    84 bytes from 100.10.0.2 icmp_seq=5 ttl=62 time=0.368 ms
+
+    PCISPA> ping 100.20.0.2
+
+    84 bytes from 100.20.0.2 icmp_seq=1 ttl=61 time=1.704 ms
+    84 bytes from 100.20.0.2 icmp_seq=2 ttl=61 time=0.592 ms
+    84 bytes from 100.20.0.2 icmp_seq=3 ttl=61 time=0.834 ms
+    84 bytes from 100.20.0.2 icmp_seq=4 ttl=61 time=0.716 ms
+    84 bytes from 100.20.0.2 icmp_seq=5 ttl=61 time=0.480 ms
+
+    PCISPA> ping 100.30.0.2
+
+    84 bytes from 100.30.0.2 icmp_seq=1 ttl=61 time=1.674 ms
+    84 bytes from 100.30.0.2 icmp_seq=2 ttl=61 time=0.578 ms
+    84 bytes from 100.30.0.2 icmp_seq=3 ttl=61 time=0.688 ms
+    84 bytes from 100.30.0.2 icmp_seq=4 ttl=61 time=0.553 ms
+    84 bytes from 100.30.0.2 icmp_seq=5 ttl=61 time=0.519 ms
+
+    PCISPA> ping 100.40.0.2
+
+    84 bytes from 100.40.0.2 icmp_seq=1 ttl=60 time=2.241 ms
+    84 bytes from 100.40.0.2 icmp_seq=2 ttl=60 time=1.389 ms
+    84 bytes from 100.40.0.2 icmp_seq=3 ttl=60 time=1.028 ms
+    84 bytes from 100.40.0.2 icmp_seq=4 ttl=60 time=1.188 ms
+    84 bytes from 100.40.0.2 icmp_seq=5 ttl=60 time=0.931 ms
+
+    PCISPA>
+
+    ! veja que a nossa mudança não comprometeu a capacidade do PC-ISP-A em
+    ! acessar os recursos dentro da Comapanhia
+
+5. Na console do ***PC-ISP-A*** execute ping e traceroute para os equipamentos ***PC-ISP-B/C/D*** :
+
+>
+    PCISPA> ping 30.30.30.2
+
+    *20.20.20.1 icmp_seq=1 ttl=255 time=0.178 ms (ICMP type:3, code:1, Destination host unreachable)
+    *20.20.20.1 icmp_seq=2 ttl=255 time=0.325 ms (ICMP type:3, code:1, Destination host unreachable)
+    *20.20.20.1 icmp_seq=3 ttl=255 time=0.290 ms (ICMP type:3, code:1, Destination host unreachable)
+    *20.20.20.1 icmp_seq=4 ttl=255 time=0.201 ms (ICMP type:3, code:1, Destination host unreachable)
+    *20.20.20.1 icmp_seq=5 ttl=255 time=0.199 ms (ICMP type:3, code:1, Destination host unreachable)
+
+    PCISPA> trace 30.30.30.2
+    trace to 30.30.30.2, 8 hops max, press Ctrl+C to stop
+     1   20.20.20.1   0.370 ms  0.203 ms  0.194 ms
+     2   *20.20.20.1   0.191 ms (ICMP type:3, code:1, Destination host unreachable)  *
+
+    PCISPA> ping 40.40.40.2
+
+    *20.20.20.1 icmp_seq=1 ttl=255 time=0.228 ms (ICMP type:3, code:1, Destination host unreachable)
+    *20.20.20.1 icmp_seq=2 ttl=255 time=0.215 ms (ICMP type:3, code:1, Destination host unreachable)
+    *20.20.20.1 icmp_seq=3 ttl=255 time=0.295 ms (ICMP type:3, code:1, Destination host unreachable)
+    *20.20.20.1 icmp_seq=4 ttl=255 time=0.327 ms (ICMP type:3, code:1, Destination host unreachable)
+    *20.20.20.1 icmp_seq=5 ttl=255 time=0.317 ms (ICMP type:3, code:1, Destination host unreachable)
+
+    PCISPA> trace 40.40.40.2
+    trace to 40.40.40.2, 8 hops max, press Ctrl+C to stop
+     1   20.20.20.1   0.296 ms  0.197 ms  0.203 ms
+     2   *20.20.20.1   0.235 ms (ICMP type:3, code:1, Destination host unreachable)  *
+
+    PCISPA> ping 50.50.50.2
+
+    *20.20.20.1 icmp_seq=1 ttl=255 time=0.287 ms (ICMP type:3, code:1, Destination host unreachable)
+    *20.20.20.1 icmp_seq=2 ttl=255 time=0.270 ms (ICMP type:3, code:1, Destination host unreachable)
+    *20.20.20.1 icmp_seq=3 ttl=255 time=0.264 ms (ICMP type:3, code:1, Destination host unreachable)
+    *20.20.20.1 icmp_seq=4 ttl=255 time=0.314 ms (ICMP type:3, code:1, Destination host unreachable)
+    *20.20.20.1 icmp_seq=5 ttl=255 time=0.253 ms (ICMP type:3, code:1, Destination host unreachable)
+
+    PCISPA> trace 50.50.50.2
+    trace to 50.50.50.2, 8 hops max, press Ctrl+C to stop
+     1   20.20.20.1   0.368 ms  0.204 ms  0.194 ms
+     2   *20.20.20.1   0.194 ms (ICMP type:3, code:1, Destination host unreachable)  *
+
+    PCISPA>
+
+    ! observer que agora o ISP A não consegue mais utilizar a rede da companhia como
+    ! transito para atingir os demias ISPs
+
+6. Na console do ***RT-SITE-B*** execute o script abaixo para configura o filtro no peering com o ***RT-ISP-B***:
+
+>
+    configure terminal
+
+    ip prefix-list MY_IPV4_BLOCK description PERMITE O BLOCO 100.0.0.0/8 e suas subnets
+    ip prefix-list MY_IPV4_BLOCK seq 5 permit 100.0.0.0/8 le 32
+
+    ipv6 prefix-list MY_IPV6_BLOCK description PERMITE O BLOCO 2003:100::/32 e suas subnets
+    ipv6 prefix-list MY_IPV6_BLOCK permit 2003:100::/32 le 128
+
+    route-map BGP_IPV4_FILTER_ISP_OUT permit 10
+    description PERMITE O BLOCO LOCAL
+    match ip address prefix-list MY_IPV4_BLOCK
+
+    route-map BGP_IPV6_FILTER_ISP_OUT permit 10
+    description PERMITE O BLOCO LOCAL
+    match ipv6 address prefix-list MY_IPV6_BLOCK
+
+    exit
+
+    router bgp 100
+
+    address-family ipv4
+    neighbor 172.16.30.1 route-map BGP_IPV4_FILTER_ISP_OUT out
+    exit
+
+    address-family ipv6
+    neighbor 172:16:30::1 route-map BGP_IPV6_FILTER_ISP_OUT out
+
+    end
+
+    write
+
+    ! precisa fazer um Soft Reset na conexão BGP com o RT-ISP-A para
+    ! aplicar as alterações de filtros no peering
+
+    clear ip bgp 172.16.30.1 soft
+
+6. Usando como base o script acima, Na console dos equipamentos ***RT-SITE-C*** e ***RT-SITE-D** execute o seu script para configura o filtro no peering com os respectivos ISPs.
+
+7. Acesse a console dos equipamentos ***PC-ISP-B/C/D*** e verifique se o resultado da aplicação dos Filtros é semelhante ao que ocorreu com o ***PC-ISP-A***.
